@@ -1,2 +1,2 @@
-# javaScript-demo
-javaScript练习作品
+# JavaScript-demo
+JavaScript练习作品
