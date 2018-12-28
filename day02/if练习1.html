@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script>
+			
+			/*
+			 * 从键盘输入小明的期末成绩
+			 * 当成绩为100时，'奖励一辆BMW'
+			 * 当成绩为[80-99]时，'奖励一台iphone15s'
+			 * 当成绩为[60-80]时，'奖励一本参考书'
+			 * 其他时，什么奖励也没有
+			 */
+			
+			var grade = prompt("请输入成绩：");
+
+			//isNaN() 判断是否非number类型的
+			if(0 < grade || isNaN(grade) || grade > 100){
+				console.log("您输入的成绩不规范");
+			}
+			else{
+				if(grade == 100){
+					console.log("奖励一辆BMW");
+				}
+				else if(80 <= grade){
+					console.log("奖励一台iphone15s");
+				}
+				else if(60 <= grade){
+					console.log("奖励一本参考书");
+				}
+				else{
+					console.log("很抱歉，什么奖励也没有");
+				}				
+			}
+
+			
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>
