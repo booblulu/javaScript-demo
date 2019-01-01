@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script>
+			//最小数值
+			console.log(Number.MIN_VALUE);
+			
+			//最大数值
+			console.log(Number.MAX_VALUE);
+			
+			//超出最大数值会显示infinity，负数则显示-infinity
+			var num = (Number.MAX_VALUE + Number.MAX_VALUE);
+			console.log(num);
+			
+			//测试数值是否在最大~最小之间，是则true，不是则false
+			console.log(isFinite(num));
+			
+			//获取infinity
+			console.log(Number.POSITIVE_INFINITY);
+			
+			//获取-infinity
+			console.log(Number.NEGATIVE_INFINITY);
+			
+			//小数计算时出现的误差
+			var a = 0.1,
+			    b = 0.2;
+			if( a + b != 0.3 ){
+				console.log("a=0.1 b=0.2 a+b不等于0.3~");
+			}
+			console.log(a + b);
+			
+			//isNaN() 查看参数是否不是数值，对于不是数值的boolean类型或“22”会将其转换为数值
+			console.log(isNaN(10));//false
+			console.log(isNaN("33"));//false
+			console.log(isNaN(true));//false
+			console.log(isNaN(1.1));//false
+			console.log(isNaN(null));//true -> false
+			console.log(Number(null));//null转换为数值型为0，所以是数值类型
+			console.log(isNaN(undefined));//true
+			console.log(isNaN(NaN));//true
+			
+			//去掉var的全局变量
+			message = 22
+			
+			//在脚本内出现“<\/script>”字符串都会出现错误，需要一个“\”转义字符
+			alert("<\/script>");
+			
+			//Number() 将任何类型转换为数值型 只要有非数字就为NaN 
+			console.log(Number("22"));//22
+			console.log(Number("22eee"));//NaN 
+			console.log(Number("eee"));//NaN 
+			console.log(Number(null));//0
+			console.log(Number(undefined));//NaN 
+			
+		</script>
+			
+		<script><!--
+		//不支持<\script>元素的浏览器，会将元素放在注释内，在XHTML中因包含在XML注释内，会忽略该脚本
+		    function display(){
+		    	console.log("hahahaha~");
+		    }
+		--></script>
+	</head>
+	<body>
+		<noscript>
+			<p>您的浏览器不支持javascript元素！</p>
+			<p hidden="hidden">不支持javascript才会显示</p>
+		</noscript>
+		<!-- 
+			在body底部加脚本 不影响页面加载 
+			引入外部js文件的好处是会进行缓存，同一个文件只会缓存一次 
+			defer=defer 延迟脚本加载 会在整个页面被解析完毕后加载 只适用于外部加载
+		-->
+		<script src="javascript.js" defer="defer"></script>
+	</body>
+</html>
+infinity
