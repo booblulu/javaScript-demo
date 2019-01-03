@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<title></title>
+		<script>
+			//正数
+		    var num1 = 1;
+			var num2 = ~num1;
+			console.log(num2); //-2
+			num1 = 2;
+			num2 = ~num1;
+			console.log(num2); //-3
+		    num1 = 3;
+			num2 = ~num1;
+			console.log(num2); //-4	
+			//负数
+		    var num1 = -3;
+		    var num2 = ~num1;
+		    console.log(num2); //2
+		    num1 = -2;
+		    num2 = ~num1;
+		    console.log(num2); //1
+		    num1 = -1;
+		    num2 = ~num1;
+		    console.log(num2); //0	 
+			//本身
+		    var num1 = -3;
+		    var num2 = ~~num1;
+		    console.log(num2); //-3
+		    num1 = -2;
+		    num2 = ~~num1;
+		    console.log(num2); //-2
+		    num1 = -1;
+		    num2 = ~~num1;
+		    console.log(num2); //-1	
+			//小数
+		    var num1 = 1.1;
+			var num2 = ~num1;
+			console.log(num2); //-2
+			num1 = 2.2;
+			num2 = ~num1;
+			console.log(num2); //-3
+		    num1 = 3.3;
+			num2 = ~num1;
+			console.log(num2); //-4	
+			//左移，二进制数向左移动，空位补零
+			var num = 2; //二进制10
+			var left = num << 5; //二进制1000000
+			console.log(left); //64
+			//有符号右移,保留符号位，向右移动，前补零
+			num = 64; //1000000
+			var right = num >> 5; //10
+			console.log(right); //2
+			//无符号右移，会带着符号一起右移，前补零，对正数无碍，对负数，由于以补码形式存放，会导致前后结果差距非常大
+			num = -64;
+			right = num >>> 5;
+			console.log(right);
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>
