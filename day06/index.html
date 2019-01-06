@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var property;
+		for(property in window){
+			document.write(property + "<br/>");
+		}
+		document.write("<br/>");
+		var obj = {
+			name : "lulu",
+			age : 18,
+			sex : "girl"
+		};
+		//for-in语句，会将对象中的所有属性进行遍历，并将属性名赋值给property，但遍历的顺序是随机的，当变量值为空时会显示undefined。
+		for(property in obj){
+			document.write(property + " = " +obj[property] + "<br/>");
+		}
+
+		/*
+		 * 函数分为定义式函数和赋值型函数
+		 * 在js预编译时会先编译声明变量，声明函数。
+		 * 然后在按顺序执行代码
+		 */
+		sum("lulu1","hello");
+		function sum(name,message){
+			console.log(name + "," + message);
+		}
+		sum("lulu","hello");
+
+		//在编译过程中t在从con()中声明了局部变量，所以在con()中会调用局部t，导致了第一次输出结果为undefined
+		var t = 1;
+		function con(){
+			//在函数中局部变量为尊
+		    console.log(t);//undefined
+		    var t = 2;
+		    console.log(t);//2
+		}
+		con();
+
+
+		//在ECMAScript中，函数不在乎传入的参数的具体数量，即使定义了两个参数的函数，也可以传入一个或三个。可以使用arguments获取传入的参数，与传入的参数顺序一致，获取形式同数组
+/*		//因为函数名相同，预编译时会按顺序声明，函数名相同会覆盖第一个，也就是不能重载
+		function sum(name,message){
+			alert(name + "," + message + "," + arguments[2]);
+		}
+		sum("lulu","hello","333");	*/
+		function str(name,message){
+			//使用严格模式
+			"use strict";
+			//严格模式下，覆盖参数的值将不执行。在传入参数小于数组下标标记的参数时，赋值也会失败。
+			arguments[1] = "no";
+			console.log(name + "," + message + "," + arguments[2]);
+			//可以查看传入的参数有几个
+			console.log(arguments.length);
+		}
+		str("lulu","hello","333");	
+		//当输入的参数少于定义参数时，会赋值undefined
+		str("lulu");	
+
+		/*
+			变量分为基础类型和引用类型
+			当将基础类型num1赋值给num2时，更改num1不会改变num2的值，num1和num2是独立的
+			但引用类型obj1赋值给obj2时，其实是obj1的指针，修改obj1的同时obj2也会发生变化
+		 */
+		var num1 = 5;
+		var num2 = num1;
+		console.log("基础类型修改前");
+		console.log("num1 = " + num1);
+		console.log("num2 = " + num2);
+		num1 = 6;
+		console.log("基础类型修改后");
+		console.log("num1 = " + num1);
+		console.log("num2 = " + num2);
+
+		var obj1 = new Object();
+		obj1.name = "lulu";
+		var obj2 = obj1;
+		console.log("引用类型修改前");
+		console.log("obj1.name = " + obj1.name);
+		console.log("obj2.name = " + obj2.name);	
+		obj1.name = "lu";
+		console.log("引用类型修改后");
+		console.log("obj1.name = " + obj1.name);
+		console.log("obj2.name = " + obj2.name);
+
+		//使用instanceof检查引用类型是什么类型的对象
+		console.log(obj2 instanceof Object);
+		//基础类型都为false
+		console.log(obj2.name instanceof Object);
+
+		//IE 立刻垃圾收集
+		//window.CollectGarbage();
+		//Opera7及以上调用垃圾收集
+		//window.opera.collect();
+
+		//管理内存
+		function createPerson(age){
+			var localPerson = new Object();
+			localPerson.age = age;
+			return localPerson;
+		}
+
+		var globalPerson = createPerson(18);
+		console.log(globalPerson.age);
+
+		//手动释放globalPerson，会在下次垃圾收集时带走它。
+		globalPerson = null;
+		
+	</script>
+</head>
+<body>
+
+</body>
+</html>
