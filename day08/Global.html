@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Global</title>
+	<script type="text/javascript">
+		//URI编码
+		var url = "http://www.wrox.com/illegal value.html#start";
+		console.log("原生url:" + url);
+		//只会将非URI符号进行编码，如空格，其余保留
+		console.log("encodeURI(url):" + encodeURI(url));
+		//会将所有非标准字符进行编码
+		console.log("encodeURIComponent(url):" + encodeURIComponent(url));
+
+		//解码，方法都是配套的。
+		console.log("decodeURI(url):" + decodeURI(url));
+		console.log("decodeURICompont(url):" + decodeURIComponent(url));
+
+		//eval()在严格模式会出错（用于处理用户输入的时候会产生代码注入）
+		eval("var name = 'lulu';");
+		console.log(name);
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
