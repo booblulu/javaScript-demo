@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Global</title>
+	<script type="text/javascript">
+		
+
+		//属性查询
+		var new2 = window.old;
+		console.log("new2:"+new2);
+
+		//为声明的变量会出错
+/*		var newValue = old;
+		console.log("newValue:"+newValue);
+*/
+
+		//location
+
+		console.log("URL为"+location.href);
+		console.log("目录或名称为"+location.pathname);
+
+		//获取URL上具体的字符串参数
+
+		
+		//测试字符串
+		var str = "?names=lulu&age=18";
+		//要从URL上获取问号以外的字符串
+		//var qs = (location.search.length > 0 ? location.search.slice(1) : "");
+		var qs = (str.length > 0 ? str.slice(1) : []);
+
+		//保存数据的对象
+		var arg = {};
+
+		//数据的键值对应
+		var name = "";
+		var value = "";
+
+		var item = "";
+		var items = qs.split("&");
+
+	
+
+		for(var i=0; i<items.length; i++){
+			item = items[i].split("=");
+			name = decodeURIComponent(item[0]);
+			value = decodeURIComponent(item[1]);
+
+			if(name.length){
+				arg[name] = value;
+			}
+		}
+
+		console.log(arg["names"] + "  " + arg["age"]);
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

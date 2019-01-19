@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>一周不解汇总</title>
+	<script type="text/javascript">
+
+		//forEach
+		var arr = [1,4,6,9];
+		arr.forEach(function(item,index,array){
+			console.log("第"+index+"个数组下标的值为："+item);
+		});
+
+		//作为值的函数
+		function callSomeFunction(someFunction,someArgument){
+			return someFunction(someArgument);
+		}
+		function getName(name){
+			console.log("名字是："+name);
+		}
+		var myName = "lulu";
+		callSomeFunction(getName,myName);
+
+		//按对象中的某个属性进行排序
+		function createComparisonFunction(prototypeName){
+			return function(Object1,Object2){
+				var obj1 = Object1[prototypeName];
+				var obj2 = Object2[prototypeName];//当属性是"name"时才加双引号Object2["prototypeName"]
+				if(obj1 > obj2){
+					return 1;
+				} else if(obj1 == obj2){
+					return 0;
+				} else{
+					return -1;
+				}
+			}
+		}
+		var data = [{name:"aulu",age:19},{name:"fengfeng",age:18}];
+
+		var newData = data.sort(createComparisonFunction("age"));
+		console.log(data);
+
+		data.forEach(function(item,index,array){
+			console.log("第"+index+"个姓名为："+array[index].name);
+			console.log("第"+index+"个年龄为："+array[index].age);
+		});
+
+		//阶乘
+		function factorial(num){
+			if(num <= 1){
+				return 1;
+			} else {
+				//factorial(num-1) 可以替换成 arguments.callee(num-1)，降低耦合 
+				return num * arguments.callee(num-1);//，严格模式下会出错
+			}
+		}
+		console.log(factorial(3));
+
+		//降低耦合后无论什么函数名都可以调用成功
+		var newFactorial = factorial;
+
+		console.log(newFactorial(3));
+		console.log(factorial(3));
+
+		//即使清空factorial，但newFactorial依旧可以调用
+		factorial = null;
+		console.log(newFactorial(3));
+
+		//caller调用当前函数的引用，严格模式下会出错
+		function outer(){
+			inner();
+		}
+		function inner(){
+			console.log(inner.caller);//显示outer()全部代码
+			console.log(arguments.callee.caller);//降低耦合
+		}
+		outer();
+
+		//bind() 创建一个函数实例，this值会绑定到bind()传入的值
+		var color = {blue : 2};
+		var blue = 3;
+		function blueNum(){
+			console.log(this.blue);
+		}
+		blueNum();
+		var newBlueNum = blueNum.bind(color);//创建实例后，即可当做函数调用
+		newBlueNum();
+
+		//字符串大小写转换
+		var studentName = "lulu";
+		var teacherName = "FENG";
+
+		console.log(studentName.toUpperCase()); //大写
+		console.log(teacherName.toLowerCase()); //小写
+
+		//按地区转换
+
+		console.log(studentName.toLocaleUpperCase()); //大写
+		console.log(teacherName.toLocaleLowerCase()); //小写
+
+		//Date
+		var d = new Date(Date.now());
+
+		//日期毫秒
+		console.log(" 获取表示日期的毫秒数 :" + d.getTime());
+		console.log(" 以毫秒数设置日期 :" + d.setTime(d.getTime()));
+
+		//year
+		console.log(" 取得四位数的年份 :" + d.getFullYear()); 
+		console.log(" 设置四位数的年份 :" + d.setFullYear(2018)); 
+		console.log(" 设置UTC四位数的年份 :" + d.setUTCFullYear(2018)); 
+		console.log(" 取得四位数的年份 :" + d.getFullYear()); 
+		console.log(" UTC四位数的年份 :" + d.getUTCFullYear()); 
+
+		//month
+		console.log(" 取得四位数的月份 :" + d.getMonth()); 
+		console.log(" 设置四位数的月份 :" + d.setMonth(12)); 
+		console.log(" 设置UTC四位数的月份 :" + d.setUTCMonth(12)); 
+		console.log(" 取得四位数的月份 :" + d.getMonth()); 
+		console.log(" UTC四位数的月份 :" + d.getUTCMonth()); 	
+
+		//date
+		console.log("月份中的天数" + d.getDate());
+		console.log("设置月份中的天数" + d.setDate(23));
+		console.log("设置UTC月份中的天数" + d.setUTCDate(23));
+		console.log("UTC月份中的天数" + d.getUTCDate());
+		console.log("月份中的天数" + d.getDate());
+
+		//week
+		console.log(" 取得四位数的星期 :" + d.getDay()); 
+		console.log(" 取得四位数的星期 :" + d.getDay()); 
+		console.log(" UTC四位数的星期 :" + d.getUTCDay()); 	
+
+		//返回本地时间与UTC时间相差的分钟数
+		console.log(d.getTimezoneOffset());
+
+		//
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
