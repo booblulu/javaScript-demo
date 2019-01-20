@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BOM</title>
+	<script type="text/javascript">
+		//获取跨浏览器窗口左边和上边的位置
+		var leftPos = (typeof window.screenLeft == "number" ? window.screenLeft : window.screenX),
+		    topPos = (typeof window.screenTop == "number" ? window.screenTop : window.screenY);
+
+		var pageWidth = window.innerWidth,
+			pageHeight = window.innerHeight;
+
+		//页面视口的大小
+		if(typeof pageWidth != "number"){
+			if(document.compatMode == "CSS1Compat"){
+				pageWidth = document.documentElement.clientWidth;
+				pageHeight = document.documentElement.clientHeight;
+			} else{
+				pageHeight = document.body.clientHeight;
+				pageWidth = document.body.clientWidth;
+			}
+		}
+		console.log(pageWidth + "  " + pageHeight);
+		window.resizeTo(100,50);
+
+		//确定跨窗口大小
+		var newWindow = null;
+		function win(){
+			var blocked = false;
+			try{
+				//当不是用户点开的弹出窗口被屏蔽时，就不会执行
+				newWindow = window.open("","newWindow","width=200,height=100,left=100,top=100");
+				if(newWindow != null){
+					//不调用close()即输入流一直存在，会由上至下一直添加
+					newWindow.document.write("<p>Hello,world!</p>");
+					newWindow.document.close();
+					document.getElementById("resize").disabled = false;
+					document.getElementById("move").disabled = false;
+					document.getElementById("close").disabled = false;
+					//opener指向调用window.open()的窗口或框架
+					//newWindow.opener = null 会将两个窗口之间的关系切断，并且无法恢复
+				} else{
+					blocked = true;
+				}
+			} catch(ex){
+				blocked = true;
+			}
+			if(blocked){
+				alert("窗口未成功弹出！");
+			}
+		}
+		//仅对于window.open()打开的窗口
+		function resize(){
+			newWindow.resizeTo(500,500);
+			newWindow.focus();
+		}
+		function move(){
+			newWindow.moveTo(600,600);
+			newWindow.focus();
+		}
+		function close(){
+			newWindow.closed();
+		}
+
+		setTimeout(function(){
+			alert("hello");
+		},1000);
+
+		//超时调用,调用一次
+		var timeoutId = setTimeout(function(){
+			alert("hello1");
+		},1000);//会在1000毫秒后将其加入到队列，按顺序执行。
+
+		//取消未执行的超时调用
+		clearTimeout(timeoutId);
+
+		//间歇调用
+		var num = 0;
+		var max = 5;
+
+		function setIntervalNumber(){
+			num++;
+
+			if(num == max){
+				alert("已经抵达最大指标");
+				clearInterval(intervalId);
+			} else{
+				alert("num="+num);
+			}
+		}
+
+		var intervalId = setInterval(setIntervalNumber,500);
+
+		//超时模拟间歇
+		var numTime = 0;
+		var maxTime = 5;
+
+		function setTimeoutNumber(){
+			numTime++;
+
+			if(numTime == maxTime){
+				alert("已经抵达最大指标");
+			} else{
+				alert("超时num="+numTime);
+				setTimeout(setTimeoutNumber,500);		
+			}
+		}
+
+		setTimeout(setTimeoutNumber,500);		
+
+		//confirm()
+		if(confirm("你还好么？")){
+			alert("我很好");
+		} else{
+			alert("我不好");
+		}
+
+
+		var result = prompt("what's you name?","");
+
+		if(result != null){
+			alert("welcome"+result);
+		}
+
+		//调用打印
+		window.print();
+
+		//调用查找
+		window.find();
+
+		window.status = "hahaha";
+		console.log("窗口状态栏"+window.status);
+
+		
+
+	</script>
+</head>
+<body>
+	<button onclick="win()">打开窗口</button><br/>
+	<button onclick="resize()" disabled="disabled" id="resize">调整大小</button><br/>
+	<button onclick="move()" disabled="disabled" id="move">移动窗口</button><br/>
+	<button onclick="close()" disabled="disabled" id="close">关闭窗口</button>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>history</title>
+	<script type="text/javascript">
+		//非IE获取检测插件
+		function hasPlugin(name){
+			name = name.toLowerCase();
+			for(var i=0; i<navigator.plugins.length; i++){
+				if(navigator.plugins[i].name.toLowerCase().indexOf(name) > -1){
+					return ture;
+				} 
+			}
+			return false;
+		}
+		//IE检查浏览器插件
+		function hasIEPlugin(name){
+			try{
+				new ActiveXObject(name);
+			} catch(ex){
+				return false;
+			}
+		}
+		
+	</script>
+</head>
+<body>
+
+</body>
+</html>
