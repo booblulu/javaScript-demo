@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+<body>
+	
+	<input type="file" multiple>
+	<img>
+	<div></div>
+
+	<script type="text/javascript">
+		//获取网络状态
+		// alert(window.navigator.onLine);
+
+		// 获取一次地理位置
+		// window.navigator.geolocation.getCurrentPosition(success,error);
+		// 实时获取地理位置
+		// window.navigator.geolocation.watchPosition(success,error);
+
+		function success(msg) {
+			// console.log(msg);
+			console.log(msg.coords.latitude);
+		}
+
+		function error(msg) {
+			console.log(msg);
+		}
+
+		//获取文件显示位置
+		var div = document.querySelector("div");
+		// var img = document.querySelector("img");
+
+		//获取上传文件控件
+		var input_file = document.querySelector("input");
+		
+		input_file.onchange = function() {
+
+			// 默认返回键值对
+			// for(var key in this){
+			// 	console.log(key,this[key]);
+			// }
+
+			//获取文件
+			var files = this.files[0];	
+			// console.log(files);
+
+			//创建读取器
+			var file = new FileReader();
+
+			//读取文件
+			// file.readAsText(files);
+			// 读取图片
+			file.readAsDataURL(files);
+
+			//当文件读取成功后，取得文件
+			file.onload = function() {
+				// 写入到img
+				var img = document.createElement("img");
+				img.src = file.result;
+				div.appendChild(img);
+				// console.log(file.result);
+			}
+
+			// //读取中触发
+			// file.onprogress = function() {
+			// 	console.log("读取中");
+			// }
+
+			// //读取开始触发
+			// file.onloadStart = function() {
+			// 	console.log("读取开始");
+			// }
+
+		}
+
+	</script>
+</body>
+</html>
