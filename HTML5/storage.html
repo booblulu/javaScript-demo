@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>Storage</title>
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<h2>LocalStorage</h2>
+	<button id="local-add">add</button>
+	<button id="local-delete">delete</button>
+	<button id="local-clean">clean</button>
+	<button id="local-gain">gain</button>
+
+	<h2>SessionStorage</h2>
+	<button id="session-add">add</button>
+	<button id="session-delete">delete</button>
+	<button id="session-clean">clean</button>
+	<button id="session-gain">gain</button>
+
+	<script type="text/javascript">
+
+		//生命周期为永久有效
+		// window.localStorage.setItem("age","20");
+
+		//生命周期为当前窗口
+		// window.sessionStorage.setItem("name","lulu");
+
+		var button = document.querySelectorAll("button");
+
+		button[0].onclick = function() {
+			window.localStorage.setItem("name","lulu");
+		}
+
+		button[1].onclick = function() {
+			window.localStorage.removeItem("name");
+		}
+
+		button[2].onclick = function() {
+			window.localStorage.clear();
+		}
+
+		button[3].onclick = function() {
+			console.log(window.localStorage.getItem("name"));
+		}
+
+		button[4].onclick = function() {
+			window.sessionStorage.setItem("name","lulu");
+		}
+
+		button[5].onclick = function() {
+			window.sessionStorage.removeItem("name");
+		}
+
+		button[6].onclick = function() {
+			window.sessionStorage.clear();
+		}
+		
+		button[7].onclick = function() {
+			console.log(window.sessionStorage.getItem("name"));
+		}
+
+
+	</script>
+
+</body>
+</html>

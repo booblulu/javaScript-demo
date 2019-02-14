@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>background</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		/*背景铺满整个浏览器 div效果等同*/
+		html,body{
+			width: 100%;
+			height: 100%;
+			background: lightblue;
+		}
+		div{
+			margin: 10px;
+			width: 60px;
+			height: 60px;
+			padding: 10px;
+		}
+		.box{
+			border: 10px dashed pink;
+			background: #888 url(img/favicon.png) no-repeat;
+			/*背景和内容对齐*/
+			background-origin:content-box;
+			/*背景和边框对齐*/
+			/*background-origin:border-box;*/
+			/*默认值 padding-box*/
+		}
+
+		.box1{
+			border: 10px dashed pink;
+			background: #888 url(img/favicon.png);
+			/*默认值*/
+			background-clip: border-box;	
+			/*裁切到内容区域*/
+			background-clip: content-box;		
+			/*裁切到内边距区域*/
+			background-clip: padding-box;
+		}
+
+		.box2{
+			background: url(img/22.jpg) no-repeat;
+			background-position: -70px 0;
+		}
+
+		.box3{
+			width: 500px;
+			height: 500px;			
+			background: red url(img/1.jpg) no-repeat;
+			/* 按比例缩放 不一定会铺满图片*/
+			background-size: contain;		
+			/* 按百分比会失真*/
+			background-size: 100% 100%;
+			/*按比例缩放 会铺满图片，部分不会显示*/
+			background-size: cover;
+		}
+
+		.box4{
+			width: 500px;
+			height: 500px;
+			background: lightyellow;
+			border: 20px solid red;
+			/*边框图片*/
+			border-image-source: url(img/2.png); 
+			/*边框裁剪*/
+			border-image-slice: 20;
+			/*边框平铺方式  默认stretch*/
+			border-image-repeat: round;
+			/*border-image-repeat: repeat;*/
+		}
+
+
+		.box5{
+			width: 500px;
+			/*径向渐变*/
+			background-image: radial-gradient(
+				100px at center,
+				red,
+				blue
+			);
+			/*线性渐变*/
+			background-image: linear-gradient(
+				/* to right ,*/
+				135deg,
+				blue 20%,
+				red 20%,
+				red 40%,
+				blue 40%,
+				blue 60%,
+				red 60%,
+				red 80%,
+				blue 80%
+			);
+
+			background-size: 100px 150px;
+		}
+
+		.outer-box{
+			width: 100%;
+			height: 100px;
+			background: lightgreen;
+			/*透视*/
+			perspective: 100px;
+			/*将平面转换为3d图片*/
+			transform-style: preserve-3d;
+		}
+
+		.box6{
+			background: green;
+			/*
+				简写
+				property duration timing-function delay
+			*/
+			/*transition: background .4s linear 1s;*/
+			/*执行时间*/
+			transition-duration: .4s;
+			/*哪些属性参与过渡动画*/
+			transition-property: background;
+			/*过度延时执行时间 (多久之后执行补间动画)*/
+			/*transition-delay: .4s;*/
+			/*
+				过渡的速度类型 
+					ease 默认，由快到慢，逐渐变慢
+					linear 恒速
+					ease-in 处于加速状态，越来越快，渐显效果
+					ease-out 处于减速状态，越来越慢，渐隐效果
+					ease-in-out 先加速再减速，渐显渐隐效果
+			*/
+			transition-timing-function: ease-in-out;
+		}
+		.box6:hover {
+			background: pink;
+			/* 2d位移 */
+			/*transform: translate(100px);*/
+			/*transform: translate(0,100px);*/
+			/*transform: translate(100px,100px);*/
+			/* 2d缩放 */
+			/*transform: scale(1.5);*/
+			/*transform: scale(1.5,1);*/
+			/* 2d旋转 */
+			/*transform: rotate(360deg);*/
+			/* 2d倾斜  (x,y)*/
+			/*transform: skew(30deg,30deg);*/
+
+			/* 3d缩放 */
+			/*transform: translateX(20px);*/
+			/*transform: translateY(20px);*/
+			transform: translateZ(2px);
+
+		}	
+
+		.box7{
+			padding: 0;
+			width: 0px;
+			height: 0px;
+			border-left: 100px solid yellow;
+			border-right: 100px solid red;
+			border-top: 100px solid green;
+			border-bottom: 100px solid blue;
+			border-radius: 50%;
+			/*transition: .4s;*/
+			perspective: 100px;
+			transform-style: preserve-3d;
+			/*使用动画*/
+			/*
+				简写
+				name duration timing-function delay iteration-count direction
+			*/
+			/*animation: rotate .4s linear 1s infinite alternate*/
+			/*名称*/
+			animation-name: rotate;
+
+			/*执行时间*/
+			animation-duration: .4s;
+
+			/*执行次数 无限循环infinite  or number*/
+			animation-iteration-count: infinite;
+
+			/*动画执行速度类型 等同过度的速度类型*/
+			animation-timing-function: linear;
+
+			/*动画逆播*/
+			animation-direction: alternate;
+
+			/*动画延迟*/
+			animation-delay: 1s;
+
+			/*动画结束状态 前提动画不能无限次执行*/
+			animation-fill-mode: forwards;
+		}
+
+		/*定义动画集*/
+		@keyframes rotate {
+			/*开始状态  0%*/
+			form {
+				/*transform: rotateZ(0deg);*/
+				transform: translateX(100px);
+			}
+			/*50%{}*/
+			/*结束状态 100%*/
+			to {
+				/*transform: rotateZ(360deg);*/
+				transform: translateX(100px);
+			}
+		}
+
+		.box7:hover {
+			/*动画暂停*/
+			animation-play-state: paused;
+		}
+
+		
+
+
+
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<div class="box1"></div>
+	<div class="box2"></div>
+	<div class="box3"></div>
+	<div class="box4"></div>
+
+	<div class="box5"></div>
+	<div class="outer-box">
+		<div class="box6"></div>
+	</div>
+	
+	<div class="box7"></div>
+	
+</body>
+</html>

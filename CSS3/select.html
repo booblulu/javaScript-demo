@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		/* 选中第一行 */
+		.box1::first-line {
+			color: red;
+		}
+		/* 选中第一个字符 */
+		.box1::first-letter {
+			color: blue;
+		}
+		/* 被选中时触发，不会对使用::first-letter的字符产生效果 */
+		.box1::selection {
+			color: yellow;
+		}
+		/* 锚链接指向时触发 要将css设置在锚链接指向的位置 而不是a标签 */
+		div:target {
+			color: brown;
+			border: 1px solid black;
+			background: #e5eecc;
+		}
+
+		ul li{
+			height: 20px;
+			width: 50px;
+		}
+
+		/* 选中所有父元素的第一个子元素 并且 是div */
+/*		div:first-child {
+			background: red;
+		}*/
+		/* 选中所有父元素的最后一个子元素 并且 是div */
+/*		div:last-child {
+			background: green;
+		}*/
+
+		/* 选中所有父元素的第n个子元素 并且 是div 从1开始
+		 * odd 奇数
+		 * even 偶数
+	 	 */
+		div:nth-child(odd) {
+			background: pink;
+		}
+		/* 选中所有父元素的倒数第n个子元素 并且 是div 从1开始 */
+		div:nth-last-child(even) {
+			background: yellow;
+		}
+
+		/* name包含box */
+		[name*="box"] {
+			color: orange;
+		}
+
+		/* name开头为bo */
+		[name^="bo"] {
+			font-weight: 700;
+		}
+
+		/* name开头为bo */
+		[name$="1"] {
+			font-size: 32px;
+		}
+
+		
+	</style>
+</head>
+<body>
+	<div class="box1" id="box1" name="box1">
+		Fighting!在英语里没有”加油“的意思，是”战斗（ fight的现在分词 ）；斗争；打架；吵架“的意思。<br>你对老外说fighting来加油，他们不会明白你的意思。
+	</div>
+	<a href="#test">please</a>
+	<div id="test">eee</div>
+	<ul>
+		<li name="box2">1</li>
+		<li>2</li>
+		<li>3</li>
+	</ul>
+	<div>
+		<div>hello</div>
+		<h2>lulu</h2>
+	</div>
+</body>
+</html>

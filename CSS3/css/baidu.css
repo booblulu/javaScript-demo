@@ -1,0 +1,37 @@
+*{
+	margin: 0 auto;
+	padding: 0;
+}
+html {
+	font-size: 10px;
+}
+
+body {
+	background: url(../img/1.jpg) no-repeat;
+	background-size: 100% 100%;
+	background-attachment: fixed;
+	background-size: cover;
+}
+/*头部*/
+header {
+	width: 100%;
+	height: 3rem;
+	background: rgba(255,255,255,0.6);
+}
+header .header-left {
+	float: left;
+}
+header .header-right {
+	float: right;
+}
+header a {
+	float: left;
+	height: 3rem;
+	color: black;
+	line-height: 3rem;
+	margin-left: 1rem;
+	text-decoration: underline;
+}
+.a_decoration {
+	text-decoration: underline;
+}

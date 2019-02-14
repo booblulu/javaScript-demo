@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <meta charset="utf-8"> -->
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<title>viewport</title>
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+		}
+		[class*="col-"] {
+		    float: left;
+		    padding: 15px;
+		}
+		[class*="col-"] {
+		    width: 100%;
+		}
+		/*
+			only : 限定某种设备 | not : 排除某种设备
+			媒体类型
+				-------------------------------
+				all	用于所有设备
+				print	用于打印机和打印预览
+				screen	用于电脑屏幕，平板电脑，智能手机等。
+				speech	应用于屏幕阅读器等发声设备
+				-------------------------------
+				aural	已废弃。用于语音和声音合成器
+				braille	已废弃。 应用于盲文触摸式反馈设备
+				embossed	已废弃。 用于打印的盲人印刷设备
+				handheld	已废弃。 用于掌上设备或更小的装置，如PDA和小型电话
+				projection	已废弃。 用于投影设备				
+				tty	已废弃。 用于固定的字符网格，如电报、终端设备和对字符有限制的便携设备
+				tv	已废弃。 用于电视和网络电视
+				-------------------------------
+			and关键字
+		*/
+		@media only screen and (min-width: 600px) {
+		    /* For tablets: */
+		    .col-m-1 {width: 8.33%;}
+		    .col-m-2 {width: 16.66%;}
+		    .col-m-3 {width: 25%;}
+		    .col-m-4 {width: 33.33%;}
+		    .col-m-5 {width: 41.66%;}
+		    .col-m-6 {width: 50%;}
+		    .col-m-7 {width: 58.33%;}
+		    .col-m-8 {width: 66.66%;}
+		    .col-m-9 {width: 75%;}
+		    .col-m-10 {width: 83.33%;}
+		    .col-m-11 {width: 91.66%;}
+		    .col-m-12 {width: 100%;}
+		}
+		/*
+			min-device-width  : 设备宽度
+			min-width : 浏览器宽度
+		*/
+		@media only screen and (min-device-width: 768px) {
+		    /* For desktop: */
+		    .col-1 {width: 8.33%;}
+		    .col-2 {width: 16.66%;}
+		    .col-3 {width: 25%;}
+		    .col-4 {width: 33.33%;}
+		    .col-5 {width: 41.66%;}
+		    .col-6 {width: 50%;}
+		    .col-7 {width: 58.33%;}
+		    .col-8 {width: 66.66%;}
+		    .col-9 {width: 75%;}
+		    .col-10 {width: 83.33%;}
+		    .col-11 {width: 91.66%;}
+		    .col-12 {width: 100%;}
+		}
+		img{
+			max-width: 100%;
+			height: auto;
+		}
+
+		.clearfix:before,
+		.clearfix:after{
+			content:'';
+			display: table;
+			clear: both;
+		}
+
+		body{
+			background: lightgreen;
+		}
+		/*
+			portrait(竖屏)：指定输出设备中的页面可见区域高度大于或等于宽度
+			landscape(横屏)： 除portrait值情况外，都是landscape
+		*/
+		@media only screen and (orientation:portrait){
+			body{
+				background: lightblue;
+			}
+		}
+
+
+	</style>
+</head>
+<body>
+	<img src="img/1.jpg">
+	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+	<div>
+		<ul class="col-3 col-m-3 clearfix">
+			<li>home</li>
+			<li>about</li>
+		</ul>
+
+		<p class="col-9 col-m-12 clearfix">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+	</div>
+
+
+	<picture>
+		<source srcset="img/favicon.png" media="(max-width:768px)">
+		<source srcset="img/1.jpg">
+		<!-- IE和Opera不支持  可以使用img代替 -->
+		<img src="img/1.jpg">
+	</picture>
+</body>
+</html>

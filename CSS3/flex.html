@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>flex</title>
+	<style type="text/css">
+		div{
+			width: 100px;
+			height: 100px;
+			/*float: left;*/
+			margin:2px;
+		}
+		.outer-box{
+			width: 800px;
+			height: 600px;
+			border: 1px solid brown;
+
+			/*
+				设置伸缩盒子
+				子元素会按照主轴的方向显示
+				主轴：默认水平从左到右
+				侧轴：始终垂直于主轴
+			*/
+			display: flex;
+
+			/*
+				子元素在主轴方向的对齐方式
+				flex-start 开始位置
+				flex-end 结束位置
+				center 居中
+				space-between 两侧无空白条 间距相等
+				space-around 两侧有空白条 间距相等
+			*/
+			/*justify-content: space-around;*/
+
+			/*
+				设置主轴的方向
+				row 默认水平
+				row-reverse 水平反转
+				column 侧轴
+				column-reverse 侧轴反转
+			*/
+			/*flex-direction: column;*/
+
+			/*
+				子元素在侧轴的对齐方式
+				flex-start 开始位置
+				flex-end 结束位置
+				center 居中
+				stretch 默认值 根据主轴 去掉对应的宽或高 会有拉伸效果
+				space-around 两侧有空白条 间距相等
+			*/
+			/*align-items: flex-start;*/
+			/*align-items: flex-end;*/
+			/*align-items: center;*/
+			/*align-items: stretch;*/
+
+			/*换行*/
+			flex-wrap: wrap;
+
+			/*
+				换行后的对齐方式
+				flex-start 顶部
+				flex-end 底部
+				center 居中
+				space-between  两侧无空白条 间距相等
+				space-around   两侧有空白条 间距相等
+				stretch 默认值
+			*/
+			align-content: space-around;
+
+
+		}
+		.box1{
+			background: red;
+		}
+
+		.box2{
+			background: green;
+		}
+
+		.box3{
+			background: yellow;
+		}
+
+		.box4{
+			background: purple;
+		}
+
+		.box5{
+			background: blue;		 
+		}
+
+		.box6{
+			width: 377px;
+			height: 100px;
+			background: pink;
+			display: flex;
+			flex: 1;
+			margin: 10px;
+			padding: 10px;
+			align-items: center;
+		}
+
+/*		.box6 > div {
+			background: yellowgreen;
+		}*/
+
+		.one{
+			flex: 1;
+			width: 60px;
+			height: 60px;
+			background: red;
+		}
+		.two{
+			flex: 1;
+			width: 60px;
+			height: 60px;
+			background: lightblue;			
+		}
+		.three{
+			flex: 1;
+			width: 60px;
+			height: 60px;
+			background: yellowgreen;
+		}
+
+		
+
+
+	</style>
+</head>
+<body>
+	<div class="outer-box">
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<div class="box3"></div>
+		<div class="box4"></div>
+		<div class="box5"></div>	
+		<div class="box5"></div>
+		<div class="box5"></div>
+		<div class="box5"></div>
+		<div class="box5"></div>	
+		<div class="box5"></div>
+		<div class="box5"></div>
+	</div>
+
+	<div class="box6">
+		<div class="one"></div>
+		<div class="two"></div>
+		<div class="three"></div>
+	</div>
+</body>
+</html>

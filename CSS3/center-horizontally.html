@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		.outer {
+			width: 500px;
+			height: 500px;
+			border: 1px solid black;
+			/* 行内水平居中 */
+			text-align: center;
+			/*垂直居中 行内*/
+			line-height: 500px;
+			position: relative;
+		}
+		.inner {
+			width: 150px;
+			height: 150px;
+			border: 1px solid black;
+			/* 块级水平居中 */
+			margin: 0 auto;		
+			text-align: center;
+			line-height: 150px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -75px;
+			margin-top: -75px;
+		}
+	</style>
+</head>
+<body>
+	<div class="outer">
+		<div class="inner">haha</div>
+	</div>
+</body>
+</html>
