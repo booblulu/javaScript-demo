@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>day11</title>
+	<script type="text/javascript">
+		//产生undefined的场合
+
+		// 1.未初始化的变量会产生undefined 
+		var a;
+		console.log(a);
+		// 2.赋值一个undefined
+		var c = undefined;
+		console.log(c);
+		// 3. 一个对象中不存在的属性的值
+		var d = {};
+		console.log(d.age);
+
+		// 对象字面量
+		var student = {
+			"name":"lulu",
+			age:19,
+			this:10,
+			4:31,
+			toShanghai:function(){
+				console.log("welcome shanghai~!");
+			} 
+		}
+
+		// 获取属性 
+		student.toShanghai(); // 方法需要加()
+		/*
+			.语法
+			1. 不能.关键字
+			2. 不能.数字
+			3. 当键为字符串也不行
+		*/
+		console.log(student.age);
+		// []语法 任何都可以
+		console.log(student["this"]);
+
+		//obj[4]=obj["4"]
+		if(student[4] == student["4"]){
+			console.log(student[4] + " | " + student["4"]);
+			console.log("true");
+		} else{
+			console.log("false");
+		}
+
+		//设置或修改属性
+		student["gender"] = "男";		
+		student.gender = "女";
+		console.dir(student);//实时更新？
+		console.log(student);
+
+		// 删除属性 delete只能删除对象中的属性
+		delete student.gender
+
+		// 清空对象
+		student = {};
+		console.dir(student);
+
+
+
+		/*
+			对象字面量
+				在创建人的对象，并且包含很多重复的属性和方法的，会有以下问题
+			1.冗余问题
+			2.内存浪费(内存泄漏)
+			解决方法 使用构造函数
+			对象中的函数解决方法->原型
+		*/
+
+		function Person(age,gender){
+			this.age = age;
+			this.gender = gender;
+		}
+		// Person是p1~p3的构造函数 ， p1是Person的构造实例
+		var p1 = new Person(19,"男");
+		var p2 = new Person(19,"男");
+		var p3 = new Person(19,"男");
+		//只要使用new关键字调用的函数，就是构造函数
+
+		/*
+			构造函数的执行过程
+			1. 创建一个构造函数的实例
+			2. 创建一个内部对象，将this指向该实例
+			3. 执行函数内部的代码，操作this的部分就是操作了该实例
+			4. 返回值
+				- a. 没有返回值(return)，返回实例
+				- b. 如果函数返回一个基本数据类型的值，本次函数的返回值时实例
+				- c. 如果函数返回一个复杂数据类型的值，那么返回的时该值
+		*/
+		function fn(){
+
+		}
+		var f1 = new fn();
+		console.log(f1);
+
+		function fn2(){
+			return "abc";
+		}
+		var f2 = new fn2();
+
+
+		function fn3(){
+			return [2,4,6];
+			//也就是说，只要值不是基本数据类型，其他都是fn3的实例，只是接收了fn3的值
+		}
+		var f3 = new fn3();
+		console.log(f3);
+
+		//instanceof 检测是否是该对象的实例    也可以用来检测是否是该类型
+		console.log( f3 instanceof fn3);
+		console.log( f3 instanceof Array);
+		console.log( f1 instanceof fn);
+
+		//typeof  只能判断：数字、字符串、布尔值、函数、undefined
+		console.log( typeof f3);
+		console.log( typeof fn3);
+		console.log( typeof 2);
+
+
+
+
+		//继承
+		// 原型链对象
+		function City(name){
+			this.name = name;
+			this.say = function(){}
+		}
+
+		var c1 = new City();
+		var c2 = new City();
+
+		//内存不同
+		console.log(c1.say === c2.say); //false
+
+		//第一种方式原型链继承
+		//解决办法写在共同的父级 City.prototype 那么访问时就是同一个方法
+		City.prototype.run = function(time){
+			console.log("抵达要时速"+ time +"KM");
+		}
+
+		c1.run(500);
+		c2.run(800);
+
+		//避免了内存浪费
+		console.log(c1.run === c2.run); //true
+
+		//这里的【构造函数的prototype对象】称为原型对象
+		// 是 c1 c2的原型对象 ，是City的构造函数实例的原型对象
+
+		// City的原型对象是？
+		// - City的构造函数 --> Function
+		// - 所以City的原型对象是：Function.prototype
+
+		//所有的对象都是继承Object，但不是直接创建的，也就是Object是祖父
+
+
+		//第一种方式原型链继承(复杂版)
+		function Cat(name){
+			this.name = name;
+		}
+		var tom = new Cat("汤姆");
+
+		//直接添加，方法少很方便
+		//当吃喝玩乐四个方法都写在原型里还好，但有100个动作的时候会产生冗余
+		Cat.prototype.say = function(){
+
+		}
+
+		//第二种官方方式 升级版本，修改原型链对象，将其指向新的对象
+		/*
+			注意点： 
+			1.要先改变原型，再创建对象
+			2.对于新原型，会添加一个constructor属性，从而不破坏原有的原型对象
+		*/
+		Cat.prototype = {
+			listen:function () {
+				// body...
+			},
+			play:function () {
+				// body...
+			}
+			//...等等
+		}
+
+		//由于新原型没有了constructor，所以需要手动指向
+		Cat.prototype.constructor = Cat;
+
+		console.log(tom.say); //true
+		console.log(tom.listen); //undefined
+
+		//先修改原型，再创建对象
+		var lulu = new Cat("路西");
+		console.log(lulu.listen);
+		console.log(lulu);
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
