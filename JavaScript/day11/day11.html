@@ -138,7 +138,7 @@
 		//内存不同
 		console.log(c1.say === c2.say); //false
 
-		//第一种方式原型链继承
+		//第一种方式原型链继承(构造函数继承)
 		//解决办法写在共同的父级 City.prototype 那么访问时就是同一个方法
 		City.prototype.run = function(time){
 			console.log("抵达要时速"+ time +"KM");
@@ -179,6 +179,8 @@
 			2.对于新原型，会添加一个constructor属性，从而不破坏原有的原型对象
 		*/
 		Cat.prototype = {
+			//由于新原型没有了constructor，所以需要手动指向
+			// constructor : Cat,
 			listen:function () {
 				// body...
 			},

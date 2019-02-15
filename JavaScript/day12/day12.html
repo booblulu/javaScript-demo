@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>day12</title>
+	<script type="text/javascript">
+		// 继承
+		// 在js中通过某种方式，获取到其他对象的方法或属性，就称之为继承。
+
+		// 第三种 拷贝继承(混入继承：mixin)
+		var o1 = {
+			name : "lulu",
+			age : 18
+		};
+
+		var o2 = o1;
+		o2.age = 20;
+		// o1和o2是同一个对象，修改o2就是修改o1，但我们不想修改o1的同时修改o2怎么办？
+		// 又或者，性别年级班级都相同，只有姓名不同的时候。
+
+		// 浅拷贝不需要递归.
+		// 深拷贝要递归 或者 使用JSON.parse(JSON.stringity(obh));
+		// _.cloneDeep(oldObj)
+		// 当b拷贝a时，修改a，b也变了，这就是浅拷贝，深拷贝b不会发生改变。
+		var person1 = [
+			"dd",
+			{name:"lulu"},
+			{ ball: "golf", game: "lol"}
+		]
+		console.log(person1);
+
+		var person2 = {};
+		// 深拷贝
+		person2 = JSON.parse(JSON.stringify(person1));
+		person2[1].name = "uu";
+		console.log(person2);
+
+		//浅拷贝，修改原对象会对新对象有修改
+		// 第一步 创建空对象
+		var o3 = {};
+
+		// 第二步 取出o1的所有属性
+		for(var key in o1){
+			// 1
+			// var value = o1[key];
+			// o3[key] = value;
+			// 2
+			o3[key] = o1[key];
+		}
+
+		o3.name = "fengfeng";
+		o1.age = 44;
+		console.log(o1);
+		console.log(o3);
+
+		var source1 = {
+			name : "ww",
+			age : 20,
+			haha : { ha:"ha"}
+		}
+
+		/*
+			source : 原对象
+			target : 目标对象
+			浅拷贝
+		*/
+		function extend(source,target) {
+			for ( var key in source) {
+				target[key] = source[key];
+			}
+		}
+		var source2 ={};
+		extend(source1,source2);
+		console.log(source1);
+		console.log(source2);
+
+		source1.haha.ha = 11;
+		console.log(source1);
+		console.log(source2);
+
+		var o5 = {};
+		extend(o1,o5);
+		console.log(o1);
+
+		o1.age = 30;
+		console.log(o1);
+
+		o5.name = "hai";
+		// 修改o1.age并没有改变o5.age
+		console.log(o5);
+
+
+		//第四种 es6扩展运算符,浅拷贝，深层依旧公共。
+		var source = {
+			name : "ww",
+			age : 20,
+			haha : { ha:"ha"}
+		}
+		var target = {...source};
+		console.log(source);
+		console.log(target);
+
+		//尝试修改原对象修改原对象
+		source.haha.ha = 11;
+		console.log(source);
+		console.log(target);
+
+		//一步到位
+		var target2 = {...source,age:18};
+		console.log(target2);
+
+
+		// 第五种 原型式继承
+		// 1.创建一个纯洁的对象：什么都没有，没有_proto_
+		// 2.创建一个继承自父对象的子对象
+		var parent = {
+			age:18,
+			gender:"男"
+		}
+		var student = Object.create(null);
+		student.name ="liil";
+		console.log(student);
+
+
+
+		// 借用构造函数继承
+		function Animal(name,age,gender) {
+			this.name = name;
+			this.age = age;
+			this.gender = gender;
+		}
+
+		function Persons(name,age,gender,say) {
+			// this.name = name;
+			// this.age = age;
+			// this.gender = gender;
+			Animal.call(this,name,age,gender);
+			// Animal.apply(this,[name,age,gender]);
+			this.say = function () {
+				
+			}
+		}
+
+		var p1 = new Persons("小凤",15,"男",function(){});
+		console.log(p1);
+
+		//寄生继承、寄生组合继承
+
+
+		//原型链(族谱，几代同堂)
+		// 对象中有有__proto__属性，指向他的父对象，使用父对象的属性或方法。
+		// 根对象(食物链的顶端) Object.prototype
+
+	</script>
+</head>
+<body>
+	<div>111</div>
+	<div>222</div>
+	<div>333</div>
+	<div>444</div>
+	<div>555</div>
+</body>
+</html>

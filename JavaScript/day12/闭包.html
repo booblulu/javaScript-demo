@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+</head>
+<body>
+	<div>111</div>
+	<div>222</div>
+	<div>333</div>
+	<div>444</div>
+	<div>555</div>
+	<!-- 当操作HTML元素时，千万记得将script放置在body底部！！！ -->
+	<script type="text/javascript">
+		
+		//闭包
+
+		//变量作用域
+		
+		//闭包的问题
+		// var divs = document.getElementsByTagName("div");
+		// var divs = document.querySelectorAll("div");
+
+		// for (var i = 0; i < divs.length; i++) {
+		// 	var element = divs[i];
+		// 	element.onclick = function () {
+		// 		alert(i);
+		// 	}
+		// }
+		// var divs = document.querySelectorAll("div");
+
+		var divs = document.getElementsByTagName("div");
+		// var divs = document.querySelectorAll("div");
+
+		// for (var i = 0; i < divs.length; i++) {
+		// 	var element = divs[i];
+		// 	element.onclick = function () {
+		// 		alert(i);
+		// 	}
+		// }
+		// var divs = document.querySelectorAll("div");
+
+		for (var i = 0; i < divs.length; i++) {
+			const element = divs[i];
+			element.onclick = (function (j) {
+				return function(){
+					alert(j);
+				}
+			})(i);
+		}
+
+		//认识闭包
+		function fn(){
+	        var a=5;
+	        //由于匿名函数要使用a变量，所以a不会释放，并放置到f1可以访问到的地方
+	        return function(){
+	            a++;
+	            console.log(a);
+	        }
+	    }
+	    var f1=fn();  //f1指向匿名函数
+	    f1(); // 6
+	    f1(); // 7
+	    f1(); // 8
+
+	    function qn() {
+	    	var a = {};
+	    	return a;
+	    }
+
+	    var q1 = qn();
+	    var q2 = qn();
+
+	    console.log(q1 == q2); //false
+
+	    function qns(argument) {
+	    	var a = {};
+	    	return function () {
+	    		return a;
+	    	}
+	    }
+
+	    var qnss = qns();
+
+	    var q3 = qnss();
+	    var q4 = qnss();
+		
+		console.log(q3 == q4); // true
+
+		var w3 = qns();
+		var q5 = w3();
+
+		console.log(q4 == q5); //false
+
+		var ktv =(function KTV() {
+			// 保护它，放在函数内部
+			var leastPrice = 1000; //最低消费
+			// 不能随便更改价格
+
+			var total = 0; //购物价格
+
+			return {
+				//购物
+				buy : function (price) { 
+					total += price;
+					return;
+				},
+				// 结账
+				pay: function () { 
+					if(total < leastPrice){
+						console.log("请继续购物");
+					} else {
+						console.log("欢迎下次光临");
+					}
+					return "";
+				},
+				editLeast:function (id,price) {
+					if(id === 888){
+						leastPrice = price;
+						console.log("现在最低消费为:" + leastPrice);
+					} else {
+						console.log("权限不足");
+					}
+				},
+				reset:function () {
+					leastPrice = 1000;
+					console.log("现在最低消费为:" + leastPrice);
+				}
+			}
+		})();
+
+		
+		
+
+	</script>
+</body>
+</html>
