@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>day14</title>
+	<script type="text/javascript">
+		// 闭包为了解决保护变量，避免污染。 
+
+		// 函数的4种调用方式
+		// 在Es6之前，函数的this是由函数的调用方式决定的
+
+		// 1.函数调用 this -> windows
+
+		function Person(name) {
+			this.name = name; // this -> windows
+		}
+		Person.prototype = {
+			cunstructor:Person,
+			say:function () {
+				console.log(this.name);
+			}
+		}
+		Person("abc");
+
+
+		function fn() {
+			this.gender = "男";
+		}
+		fn();
+		// window.gender = "男" | gender = "男"
+
+		var age = 20;
+		var p = {
+			age:15,
+			say:function () {
+				console.log(this.age);
+			}
+		}
+		var p1 = p.say;
+		p1(); // this.age = 20
+		// 函数内部的this指向window
+
+
+
+
+		// 2.方法调用
+
+		function Teacher() {
+			this.age = 20;
+		}
+
+		Teacher.prototype.run = function () {
+			console.log(this.age);
+		}
+
+		var t1 = new Teacher();
+		t1.run(); // 20
+
+
+		
+		var height = 100;
+
+		var p2 = {
+			height:150,
+			say:function () {
+				console.log(this.height);
+			}
+		}
+		p2.say(); // 150
+
+		var clear = function () {
+			console.log(this.length);
+		}
+
+		var length = 50;
+		var tom = { 
+			c:clear ,
+			length:100
+		};
+		tom.c();
+		// tom. 所以作用域是tom的length
+
+
+
+
+		// 3.new调用(构造函数)
+
+
+		function setName(name) {
+			this.name = name;
+		}
+		var _n = new setName("小明");
+		console.log(_n.name);
+
+
+		function jq() {
+			//把init当做构造函数来调用
+			return new jq.prototype.init();
+			// 对象的属性查找规则
+			// 作为init构造函数的实例
+			// 1.首先在构造函数init(本身)查找length属性。
+			// 2.本身没有，向init.prototype中查找
+			// 3.当原型对象中也没有时，会一直追寻到根对象Object.length
+			// 4.最后，它会认为没有length，你在玩他，并返回undefined
+		}
+
+		jq.prototype = {
+			cunstructor : jq,
+			length : 100,
+			// 函数的prototype默认指向一个对象，但不是jq.prototype
+			init:function () {
+				// this.name = "lulu";
+				// console.log(this);
+				console.log(this.length);  // undefined
+			}
+		}
+
+		new jq();  //  == jq()
+		// j1();
+		jq.prototype.init.prototype = jq.prototype;
+
+		new jq();  // == jq()
+
+
+
+
+
+
+
+
+
+		// 4.上下文调用，有三种 call,apply,bind
+		
+
+		function fn() {
+			console.log(this);
+			// console.log(this.length);
+		}
+
+		// this指向对象本身
+		fn.call([1,3,5]);
+		fn.call({age:20,name:"lulu"});	
+		// this指向基本数据类型的包装类
+		fn.call("abc");
+		fn.call(1); // Number{1}
+		fn.call(true);
+		// this指向window
+		fn.call(null);
+		fn.call(undefined);
+		// fn.apply(this);
+		// fn.call(5);
+
+		// call以上，apply适用，会立刻执行
+
+		// call和apply只有传参不同
+		// 当传三个参数的时候，apply必须是数组,call可以任意
+		function toString(a,b,c) {
+			console.log(a + "" + b.name + "" + c);
+		}
+		toString.call(null,1,{name:1},3);
+		toString.apply(null,[1,{name:1},3]);
+
+		var obj = {
+			num : 18,
+			run : function () {
+				// 以前的方法在setTimeout中使用this.num
+				// var _that = this;
+				// setTimeout(function () {
+				// 	// console.log(_that.num);
+				// },50);
+
+				// 匿名函数调用bind，改变了匿名函数的this，指向obj
+				setTimeout((function () {
+					// console.log(_that.num);
+					console.log(this.num);
+				}).bind(this),50);
+
+			}
+		}
+
+		// obj.run(); // undefined
+
+		// bind  Es5以后出现的(IE9+)  只修改this并不立刻执行，并创建一个新韩淑
+		obj.run(); 
+
+		function speed() {
+			console.log(this.seconds);
+		}
+		speed();
+
+		var speedBind = speed.bind({seconds:100});
+		speedBind(); //new function
+
+
+		// 自调用函数
+		(function eat() {
+			console.log(this.seconds);
+		}).bind({seconds:300})();
+
+
+
+
+
+		//闭包内存释放，减少内存泄漏
+		function f1() {
+			var a = 5;
+			return function () {
+				a++;
+				console.log(a);
+			}
+		}
+		var q1 = f1();
+		// 只能释放q1,之后GC垃圾回收机制会回收a
+		q1 = null;   // q1 = undefined
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
