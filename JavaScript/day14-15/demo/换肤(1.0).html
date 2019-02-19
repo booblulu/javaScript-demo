@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/bg-pink.css" id="css">
+</head>
+<body>
+	<button id="btn">一键换肤</button>
+
+	<script type="text/javascript">
+		var btn = document.getElementById("btn");
+		var bgs = [
+			"bg-green", 
+			"bg-pink",
+			"bg-yello"
+		];
+		btn.onclick = (function(){
+			
+			// 随机数
+			var rand = Math.floor(Math.random() * (this.bgs.length));		
+			// var bg = this.bgs.slice(rand,1)[0];
+			console.log("rand" + rand);
+
+			// 获取随机背景
+			var link_css = document.getElementById("css");	
+
+			link_css.href = `css/${this.bgs[rand]}.css`
+		}).bind(this);
+		
+	</script>
+</body>
+</html>

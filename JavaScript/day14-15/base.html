@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>base</title>
+	<script type="text/javascript">
+
+	// 会在其他加完后加载，当然还是放在body底部比较好
+	window.onload = function (argument) {
+		// 获取错误信息
+		var buttons = document.querySelector("button");
+		buttons.onclick = ()=>{
+			try{		
+				if(!buttons.value){
+					throw `alert()`;
+				}
+				awlert(`hello`); 
+				
+			}
+			catch(error){
+				// 打印错误信息，message已经包含了错误信息
+				alert(` ${error.message} `);
+			}
+		};
+
+		// 获取事件源
+		var btn1 = document.getElementsByTagName('button')[0];
+		var btn2 = document.getElementById("btn");
+		var btn3 = document.getElementsByClassName("btn")[0];
+		var btn4 = document.querySelectorAll("#btn")[0]; //h5
+		var btn5 = document.querySelector(".btn"); //h5
+
+
+		console.log(btn1);
+		console.log(btn2);
+		console.log(btn3);
+		console.log(btn4);
+		console.log(btn5);
+
+		// 绑定事件
+		btn5.onclick = ()=>{
+			btn5.style.color = "red";
+		};
+
+	}
+	</script>
+</head>
+<body>
+	
+	<button value="10">点我</button>
+	<button class="btn" id="btn">别点我</button>
+	<button class="btn1" id="btn1" onclick="alert(`哼`)">别点我</button>
+
+</body>
+</html>
