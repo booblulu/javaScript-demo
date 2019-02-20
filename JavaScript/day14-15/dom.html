@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>dom</title>
+</head>
+<body>
+	<div id="box">
+		<button class="btn">点我</button>
+		<span id="span">
+			<!-- 锚链接 -->
+			<a href="#he">别点它，点我</a>
+			<a name="me">宠幸我</a>
+			<input type="text" name="">
+		</span>
+	</div>
+
+	<script type="text/javascript">
+
+		var span = document.getElementsByTagName('span')[0];
+		var a = document.getElementsByTagName('a')[0];
+		var parent = span.parentNode;
+		// parentNode 父节点
+		console.log(span.parentNode);
+
+		// innerHTML 文本节点的内容
+		console.log(span.innerHTML);
+
+		// nodeName 存放的都是大写元素
+		console.log(span.nodeName); // 返回标签
+		console.log(a.innerHTML.nodeName); // 返回标签
+
+
+		
+		// 当前区域获得焦点的元素
+		var div = document.getElementById("box");
+		div.onclick = ()=>{
+			var b = document.activeElement.tagName;
+			console.log(b);
+		}
+		
+		// 添加事件句柄 -> 给某个区域添加事件效果
+		div.addEventListener("click",()=>{
+			var element = document.createDocumentFragment();
+
+			// 创建元素节点
+			var a = document.createElement("a");
+			console.log(a);
+
+			// 子节点
+			var node = document.createTextNode("hi");
+			element.appendChild(a.appendChild(node));
+
+			// appendChild() 不能直接添加字符串->需要变成文本节点
+			// 只能添加子节点
+			div.appendChild(element);
+
+		});
+
+		// adoptNode() 
+		// 可以从另一个文档中获取一个节点，并且节点下的所有节点都会被获取到，另一个文档中该节点会被删除
+		// 操作方法
+		// 1.首先获取另一个文档的节点
+		// 2.存放区域.adoptNode(节点名)
+		// 3.保存完毕
+
+
+		// anchors 返回本文档的锚链接数组
+		console.log(document.anchors[0]);
+
+		// 返回文档的基础URI 不支持ie
+		console.log(document.baseURI);
+
+		// document.close() 关闭.open()的输出流 或.write()
+		// document.open() 打开输出流
+		// document.write() 写入
+
+		// 文档类型声明
+		console.log(document.doctype);
+
+		// textContent 会返回所有文本节点，包括子节点
+		console.log(div.textContent);
+
+
+	</script>
+</body>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
