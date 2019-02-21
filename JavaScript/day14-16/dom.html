@@ -40,6 +40,7 @@
 		
 		// 添加事件句柄 -> 给某个区域添加事件效果
 		div.addEventListener("click",()=>{
+			// 一个空的DocumentFragment对象，不在DOM树内，防止节点被破坏
 			var element = document.createDocumentFragment();
 
 			// 创建元素节点

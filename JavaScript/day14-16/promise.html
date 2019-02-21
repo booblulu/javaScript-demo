@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>promise</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		// 5.1 promise
+		// 解决回调地狱
+		// 什么是回调函数呢》
+		if(null){
+			if(null){
+				if(null){
+					if(null){
+						// ...n个
+					}
+				}
+			}
+		}
+
+		// 把异步操作封装在promise中
+		// resolve 标记执行完成
+		function fn() {
+			return new Promise( (resolve,reject)=> {
+				setTimeout(()=>{
+					console.log("第一步");
+					// 当console.log输出完，异步就执行结束了
+					// 这时候执行resolve()告诉外界，异步执行结束了
+					resolve();
+				},1000);			
+			});
+		}
+
+		function f1() {
+			return new Promise((resolve,reject)=>{
+				setTimeout(()=>{
+					console.log("第二步");
+					resolve();
+				},1000);
+			})
+		}
+
+		// 执行完成会由resolve()传递给我完成标记，收到完成标记后，执行then的回调函数返回第二步的promise对象，当第二步完成，收到resolve()的标记，会执行then的回调函数返回第三步的对象，以此类推，一直到结束
+		fn().then(res=>{
+
+			return f1();
+			
+		}).then(res=>{
+
+			setTimeout(()=>{
+				console.log("完成");
+			},1000);
+		})
+
+
+
+		// 传参
+
+		function getUser(fn) {
+			return new Promise((resolve,reject)=>{
+				$.get("/getUser",res=>{
+					// res是从服务器获取的数据
+					// 告诉外界执行完毕
+					resolve(res);
+				})
+				
+			});
+		}
+
+		getUser().then(res=>{
+			// res就是服务器传递的数据
+		})
+
+
+
+		// 5.2 错误处理
+		function getBooks() {
+			return new Promise((resolve,reject)=>{
+				$.ajax({
+					url:"/getBooks",
+					success(res){
+						// 成功获取数据
+						resolve(res);
+					},
+					error(resErr){
+						// res为错误信息
+						// 失败执行reject()
+						reject(resErr);
+					}
+				})
+			});
+		}
+
+		// 方式1
+		getBooks().then(res=>{
+			// res表示请求成功获取到的数据
+		},resErr=>{
+			// resErr表示错误信息
+		})
+
+		// 方式2,推荐
+		不仅仅可以捕捉到reject()传递的参数
+		还可以捕获到成功回调(success)中发生的错误
+		getBooks().then(res=>{
+			// success
+		}).catch(resErr=>{
+			// reject()可以被catch()捕捉到错误信息
+		})
+
+
+		// 实例
+		function f(name) {
+			return new Promise((resolve,reject)=>{
+				setTimeout(()=>{
+					if(name == "lulu"){
+						resolve();
+					} else {
+						reject();
+					}
+				},1000);
+			});
+		}
+
+
+		f("lulu").then(res=>{
+			console.log(`success`);
+			var a=5;
+			a();
+		}).catch(resErr=>{
+			// 可以捕捉到success中的错误处理
+			console.log(` error ${resErr}`);
+		})
+
+		// 多层只需要一个catch就可以了
+		f("lulu").then(res=>{
+			console.log(`1 success`);
+			
+			return f("ww");
+		}).then(res=>{
+			console.log(`2 success`);
+		}).catch(resErr=>{
+			// 可以捕捉到success中的错误处理
+			console.log(` error ${resErr}`);
+		})
+
+		
+
+		// 实际开发中
+		// axios封装了Promise很好用
+		// fetch是新浏览器自带的
+
+	</script>
+</body>
+</html>

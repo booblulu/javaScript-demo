@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bind</title>
+
+</head>
+<body>
+
+	<script type="text/javascript">
+		// bind方法
+		// 放在函数的原型中
+
+		Function.prototype._bind = function (target) {
+			return ()=> {
+				this.call(target);
+			}
+			// var _that = this;
+			// return function () {
+			// 	_that.call(target);
+			// }
+		}
+
+		function fn() {
+			console.log(` hello me girl ${this.age}`);
+		}
+
+		var _fn = fn._bind({age: 20});
+		_fn();
+
+
+
+	</script>
+</body>
+</html>
