@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		// 6.async是promise的语法糖
+
+		function fn() {
+			return new Promise((resolve)=>{
+				setTimeout(()=>{
+					console.log("hi");
+					resolve("0");
+				},1000);
+			});
+		}
+
+		// promise
+		fn().then(res=>{
+			console.log("OK");
+		}).catch(resErr=>{
+			console.log("NO");
+		});
+
+		// async的实现
+		(async function () {
+
+			// await表示异步操作，必须在async函数内
+			// fn()必须是一个Promise函数或async函数
+			await fn();
+
+			// 会在异步操作之后执行
+			console.log("1");
+
+			// 接受resolve返回值
+			let res = await fn();
+			console.log(res);
+
+			console.log("2");
+
+		})()
+
+
+		var o1 = {
+			say: async ()=>{
+				const res = await fn();
+				console.log(`res ${res}`);
+			},
+			run: async ()=>{
+				await fn();
+				console.log(`run`);
+			}
+		};
+
+		o1.say();
+
+		(async function(){
+			try{
+				// 想让run()在say()运行完后运行，也需要进行封装在一个async函数
+				await o1.say();
+
+				await o1.run();
+			} catch(e){
+				// 错误处理只能使用try catch
+				console.log(e);
+			}
+			
+		})()
+
+		// var f1 = async ()=>{
+		// 	await o1.say();
+
+		// 	await o1.run();
+		// };
+
+		// f1();
+
+
+
+	</script>
+</body>
+</html>

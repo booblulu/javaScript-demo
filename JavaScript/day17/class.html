@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+
+		// 7.class
+
+		// 7.1 定义类
+		class Person{
+			// 构造方法
+			constructor(name,age){
+				this.name = name;
+				this.age = age;
+			}
+		}
+		var p1 = new Person("lulu",22);
+		console.log(p1);
+
+		// 和构造函数的方式基本一直
+		function Student(name,age) {
+			this.name = name;
+			this.age = age;
+		}
+		var stu = new Student("feng",23);
+		console.log(stu);
+
+
+
+		// 7.2 类方法
+		class Car{
+
+			constructor(age){
+				this.age = age;
+			}
+
+			// 实例方法：通过类的实例访问的
+			run(){
+				console.log("开始");
+			}
+
+			getAge(){
+				console.log(`今年${this.age}`);
+			}
+
+			// 静态方法，类独有
+			static born(){
+				console.log("出生了");
+			}
+
+		}
+
+		var c1 = new Car(15);
+		c1.run();
+		c1.getAge();
+
+		// 只能由类访问
+		Car.born();
+
+
+
+		// 7.3 类继承
+
+		// 关键字extends
+		class Teacher extends Person{
+
+			constructor(name,age,gender){
+
+				// 必须调用父类构造方法，否则会报错
+				super(name,age);
+				this.gender = gender;
+
+			}
+		}
+
+		var tea = new Teacher("dd",33,"女");
+		console.log(tea);
+
+
+	</script>
+</body>
+</html>
