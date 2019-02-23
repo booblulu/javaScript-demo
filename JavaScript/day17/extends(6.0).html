@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<span class="header">343</span>
+	<input typr="text" id="inputId">
+	<div>33</div>
+	<div>22</div>
+	<div>11</div>
+	<script type="text/javascript">
+
+		// 1.要封装这个库是独立的：模块化
+		// -- 不依赖于其他第三方库
+		// -- 大部分与世隔绝,只有$、jQuery
+
+		(function (window) {
+
+			function jQuery(selector) {
+				// jquery封装了一个Sizzle引擎
+				
+				// jQuery的构造函数
+				return new jQuery.fn.init(selector);
+			}
+
+			jQuery.fn =jQuery.prototype = jQuery.prototype = {
+				constructor: jQuery,
+				// 简写形式不能new
+				init:function(selector) {
+					// 获取所有DOM元素，H5版本低不支持
+					const elements = document.querySelectorAll(selector); 
+					
+					// 最开始放在对象的属性上，
+					// 可以优化为放在对象自己身上，生成一个伪数组
+					for (let i = 0; i < elements.length; i++) {
+						
+						this[i] = elements[i]; // 间写
+					}
+
+					// 伪数组的数组长度
+					this.length = elements.length;
+				},		
+				// es6专属，对象方法可以简写
+				css(name,value){
+					for (let i = 0; i < this.length; i++) {
+						let element = this[i];
+						// 由于name是变量只能使用[]
+						element.style[name] = value;
+					}
+				}				
+			}
+
+			// 为了能让init的实例访问到jQuery.prototype.init
+			// 将init.prototype的原型改为jQuery.prototype
+
+			// 因为方法是向上寻找的，init的原型并没有css方法，但是jQuery.prototype的原型中有，所以需要改变init的原型
+			jQuery.fn.init.prototype = jQuery.fn;
+
+			jQuery.extends = function (...args) {
+				
+				console.log(args);
+
+				const target = args[0];
+
+				for (let i = 1; i < args.length; i++) {
+					// 每一个实参
+					let arg = args[i];
+
+					for( key in arg){
+						
+						target[key] = arg[key];
+					}
+
+
+				}
+
+				
+			}
+
+			window.$ = window.jQuery = jQuery;
+
+		})(window)
+
+
+		// $.extends 拷贝继承(混入继承)
+
+		var obj1 = {name: "lili",age: 3};
+		var obj2 = {gender: "女"};
+		var obj3 = {};
+
+		$.extends(obj3,obj1,obj2);
+
+
+
+
+
+
+	</script> 
+</body>
+</html>

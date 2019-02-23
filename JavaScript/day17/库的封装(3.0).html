@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<span class="header">343</span>
+	<input typr="text" id="inputId">
+	<div>33</div>
+	<div>22</div>
+	<div>11</div>
+	<script type="text/javascript">
+		// 给页面中的所有div设置字体颜色为红色
+		// $("div").css("color","red");
+
+		// 1.要封装这个库是独立的：模块化
+		// -- 不依赖于其他第三方库
+		// -- 大部分与世隔绝,只有$、jQuery
+
+		(function (window) {
+
+			function jQuery(selector) {
+				// jQuery的构造函数
+				return new F(selector);
+			}
+
+			function F(selector) {
+				// 获取所有DOM元素
+				const elements = document.querySelectorAll(selector); // H5版本低不支持
+
+				// 将其放在对象的属性中进行传递
+				this.elements = elements;
+			}
+
+			F.prototype.css = function(name,value){
+				for (let i = 0; i < this.elements.length; i++) {
+					let element = this.elements[i];
+					// 由于name是变量只能使用[]
+					element.style[name] = value;
+				}
+			}
+
+			window.$ = window.jQuery = jQuery;
+
+		})(window)
+
+
+		$("div").css("color","red");
+		$(".header").css("color","green");
+		$("#inputId").css("color","pink");
+
+	</script> 
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<span class="header">343</span>
+	<input typr="text" id="inputId">
+	<div>33</div>
+	<div>22</div>
+	<div>11</div>
+	<script type="text/javascript">
+		// 给页面中的所有div设置字体颜色为红色
+		// $("div").css("color","red");
+
+		// 1.要封装这个库是独立的：模块化
+		// -- 不依赖于其他第三方库
+		// -- 大部分与世隔绝,只有$、jQuery
+
+		(function (window) {
+
+			function jQuery(selector) {
+				
+				// 当选择器变多的时候，会有相同的css方法，造成内存浪费
+				const elements = document.getElementsByTagName(selector);
+				elements.css=()=>{
+
+				}
+
+				return elements;
+			}
+
+
+			window.$ = window.jQuery = jQuery;
+
+		})(window)
+
+
+		$("div").css("color","red");
+
+
+	</script> 
+</body>
+</html>
