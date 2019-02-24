@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	// 正则表达式
+
+	// 1.格式
+	var reg = /a/;
+	var reg1 = /abc/;
+
+
+
+	// 2.匹配
+	// test用来检测字符串是否满足正则表达式的要求 ，布尔值
+	console.log(reg.test("abc")); // true
+	console.log(reg.test("hello")); // false
+
+	console.log(reg1.test("bcd")); // false
+	// abc必须连续存在
+
+	console.log("---------------------------------");
+
+	// 3.特殊字符
+	// 3.1 字符类别
+	// 都是或的关系，只要有就为真，全没有就为假
+	// 当只有一个的时候 /./表示只要有一位就行了，但当多位的时候表示连续
+
+		// . 匹配任何一个换行符(\r \n)以外的任意字符	
+		var reg2 = /./;
+		console.log(reg2.test("a")); //true
+		console.log(reg2.test(".")); //true
+		console.log(reg2.test("\r")); //false
+		console.log(reg2.test("1\r")); //true,1的存在导致\r不是换行符。
+		// 注意点：如果以后要匹配.字符，不要直接写.
+		// 例邮箱 /qq.com/ -> "qq3com"也正确
+		// 解决方案  /qq\.com/  或   /qq[.]com/
+
+		console.log("---------------------------------");
+
+		// \d 表示一个数字
+		var reg3 = /\d/;
+		console.log(reg3.test("323")); // true
+		console.log(reg3.test("323aaa")); // true
+		console.log(reg3.test("aaa")); // false
+
+		console.log("---------------------------------");
+
+		// 连续出现的两个数字
+		var reg4 = /\d\d/;
+		console.log(reg4.test("22rr")); // true
+		console.log(reg4.test("2a3")); // false	
+
+		console.log("---------------------------------");
+
+		// 例子：不严谨的匹配手机号 11位
+		var isCell = /\d\d\d\d\d\d\d\d\d\d\d/;
+		console.log(isCell.test("15541953122")); // true
+		console.log(isCell.test("123123sdf4d")); // false			
+
+		console.log("---------------------------------");
+
+		// \D 一个非数字
+		var reg5 = /\D/;
+		console.log(reg5.test("222")); // false
+		console.log(reg5.test("323aaa")); // true
+		console.log(reg5.test("aaa")); // true		
+
+		console.log("---------------------------------");
+
+		// 例子：表示连续的五个字符，第四个为非数字
+		var reg6 = /123\D5/;
+		console.log(reg5.test("12345")); // false				
+		console.log(reg5.test("123n5")); // true				
+
+		console.log("---------------------------------");
+
+		// \w 匹配一个数字、字母、下划线，三者满足其一即可
+		// \W 大W，匹配一个非数字、字母、下划线。
+		var reg7 = /\w/;
+		console.log(reg7.test(".")); // true	
+		console.log(reg7.test("w.")); // true				
+		console.log(reg7.test("12_n5")); // true			
+
+		console.log("---------------------------------");
+
+		// \s 表示一个空白字符 (\r \n \t 空格)
+		// \S 表示一个非空白字符 。
+		var reg8 = /\s/;
+		console.log(reg8.test(".")); // false	
+		console.log(reg8.test("w.")); // false				
+		console.log(reg8.test("33\r")); // true		
+
+		console.log("---------------------------------");
+
+		// 例子：
+		var reg9 = /\s\S/;
+		console.log(reg9.test(" s")); // true				
+		console.log(reg9.test("s ")); // false	
+		console.log(reg9.test(" ss")); // true
+
+		// \ 转义字符
+		var reg10 = /\//; // 匹配一个正斜杠
+		// 等价于
+		var reg11 = /[/]/;
+
+		console.log("---------------------------------");
+
+		// 例子：不严谨的匹配邮箱   13433.com
+		var isEmail = /\w\w\w\w\w@\w\w\.com/;
+		console.log(isEmail.test("124ss4@qq.comss")); // true,连续的但前后不要求
+		console.log(isEmail.test("124ss@qq.com")); // true
+
+		console.log("---------------------------------");
+
+	// 3.2 字符集合
+	// 都是或的关系，只要有就为真，全没有就为假
+
+		// [] 满足[]中的其中一个字符就行
+		var reg12 = /[1a2b3]/;
+		console.log(reg12.test("124ss@qq.com")); // true
+
+		// 例子：连续的两个字符
+		var reg13 = /[123][abc]/;
+		console.log(reg13.test("1a")); // true	
+		console.log(reg13.test("a1")); // false		
+
+
+		// [0-9] 匹配0-9之间的所有数字 等价于 \d
+		// [a-z] 匹配所有的小写字母
+		// [A-Z] 匹配所有的大写字母
+		// [a-zA-Z] 匹配所有字母
+
+		// ^ 取反的感觉，例[^123]:匹配不是123的字符
+
+
+	// 3.3 边界
+
+		console.log("---------------------------------");
+
+	// 3.4 量词
+
+		// * 出现0次或多次
+		var reg14 = /\d*/;
+		console.log(reg14.test("sss")); //true
+	
+		// 例子
+		var reg15 = /1\d*/;
+		console.log(reg15.test("3")); //false
+		console.log(reg15.test("123")); //true
+		console.log(reg15.test("a1b")); //true
+
+
+</script>
+</html>

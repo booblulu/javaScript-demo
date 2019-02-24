@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		div{
+			color: red;
+		}
+		span{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<span class="header">343</span>
+	<input typr="text" id="inputId">
+	<div>33</div>
+	<div>22</div>
+	<div>11</div>    
+	<script type="text/javascript">
+
+		// 获取样式不能使用 xxx.style.color 因为只能获取行内样式
+		// 获取样式的正确方式
+		//   现代浏览器: window.getComputedStyle(dom,null);
+		//   IE6-8: dom.currentStyle
+
+
+		// 链式调用    必须有返回值就不行   没返回值就可以
+
+
+
+		(function (window) {
+
+			function jQuery(selector) {			
+				// jQuery的构造函数
+				return new jQuery.fn.init(selector);
+			}
+
+			jQuery.fn = jQuery.prototype = jQuery.prototype = {
+				constructor: jQuery,
+				// 简写形式不能new
+				// 入口函数
+				init:function(selector) {
+
+					if( jQuery.type(selector) === "string"){
+						// 选择器
+
+						// 获取所有DOM元素，H5版本低不支持
+						const elements = document.querySelectorAll(selector); 
+						
+						// 最开始放在对象的属性上，
+						// 可以优化为放在对象自己身上，生成一个伪数组
+						for (let i = 0; i < elements.length; i++) {						
+							this[i] = elements[i]; // 间写
+						}
+
+						// 伪数组的数组长度
+						this.length = elements.length;
+
+					} else if( selector.nodeType ){
+						// dom元素 {0:div,length:1}
+						this[0] = selector;
+						this.length = 1;
+					}
+					
+
+				}			
+			}
+
+			// 为了能让init的实例访问到jQuery.prototype.init
+			// 将init.prototype的原型改为jQuery.prototype
+
+			// 因为方法是向上寻找的，init的原型并没有css方法，但是jQuery.prototype的原型中有，所以需要改变init的原型
+			jQuery.fn.init.prototype = jQuery.fn;
+
+			jQuery.fn.extends = jQuery.extends = function (...args) {
+				// 接收对象不一样
+				// 提供的数据不一样
+				
+				let target,source = [];
+
+				source = [...args];
+
+				// $.extends({})    -> 给$添加属性
+				// $.fn.extends({})    -> 给$.fn添加属性
+				// 参数大于1时   -> 给第一个实参添加属性
+				
+				if (arguments.length == 1) {
+
+					target = this;
+
+				} else {
+					// 参数个数大于1					
+					target = args[0];
+					source.splice(0,1); // 删除第一个元素
+				}
+
+				// 可以接受多个参数
+				// ...source 等价于 不确定的n个参数
+				Object.assign(target,...source);	// es6
+			}
+
+			// $.xxx() 工具类方法
+			// $.ajax $.get $.type $.post
+
+			jQuery.extends({
+				// $.each 遍历
+				// $("").each(function(index,element){})
+				each(obj,callback){
+					// 数组 -> for
+					// 对象 -> for..in..
+
+					// 不仅可以遍历数组，还可以遍历伪数组 {0:34,length:1}
+					// 不能使用 Object.prototype.toString
+					if( (length in obj) && obj.length >= 0 ) {
+						// 数组
+						for (let i = 0; i < obj.length; i++) {
+							callback.call(obj[i],i,obj[i]);
+						}
+					} else {
+						// 对象
+						for( let i in obj){
+							callback.call(obj[i],i,obj[i]);
+						}
+					}
+				},
+				// $.type()
+				type(data){
+					// Object.prototype.toString.call(1) --> "[Object Number]"
+
+					var type = Object.prototype.toString.call(data);
+					return type.replace("[object ","").replace("]","").toLowerCase(); 
+				}
+			})
+
+			// each
+			jQuery.fn.extends({
+				each(callback){
+					jQuery.each(this,callback)
+
+					return this;
+				}
+			})
+
+			// dom方法
+			jQuery.fn.extends({
+				// 获取第一个div的颜色 $("div").css("color")
+				// 设置样式 
+				//   $("div").css("color","red")
+				//   $("div").css({"color":"red","backgroundColor":"blue"})
+				css(...args){
+
+					var arg1 = args[0],
+						arg2 = args[1];
+					
+					// 参数个数：1
+					if(args.length === 1){					
+						
+						// 获取样式,只获取第一个元素的样式
+						if(jQuery.type(arg1) === "string"){
+							
+							let firstDom = this[0];
+
+							// 只能获取行内样式
+							// return firstDom.style[arg1];
+							
+							// window.getComputedStyle  -> es5
+							// 会将所有的样式以键值对的形式返回
+							let domStyleObj = window.getComputedStyle(firstDom,null);
+							return domStyleObj[arg1];
+						
+						// 设置多个样式
+						} else {
+							// 只有一个对象参数
+							// arg1 = {"color":"red","backgroundColor":"blue"}
+						
+							// 优化
+							// this是一个jQuery对象
+							var _that = this;
+							// 首先遍历出所有要添加的样式
+							jQuery.each(arg1, function(key,value){
+								// 遍历每一个dom元素添加指定的样式
+								_that.css(key,value);
+							})
+
+							return _that;
+							
+
+						}						
+					// 参数个数为2,设置单个样式
+					} else {						
+						// 1.遍历每个dom
+						// 2.给每个dom添加样式
+
+						// this 是一个jQuery对象
+						return this.each(function(index,dom){
+							// this 是一个dom元素
+							this.style[arg1] = arg2;
+						});
+
+					}
+				},
+				// 不涉及动画
+				show(){
+					return this.css("display","block");
+				},
+				hide(){
+					return this.css("display","none");
+				},
+				toggle(){
+					this.each(function(){
+						// this: dom元素 并不能直接访问jQuery的原型方法
+						// 将dom元素转换为jQuery对象
+
+						// if(jQuery(this).css("display") === "none"){
+						// 	jQuery(this).show();
+						// } else {
+						// 	jQuery(this).hide();
+						// }
+
+
+						// jQuery(this).css("display") === "none" ? 
+						// 	jQuery(this).show() : 
+						// 	jQuery(this).hide()
+
+
+						// 优化1
+						// let $this = jQuery(this);
+						// $this.css("display") === "none" ? 
+						// 	$this.show() : 
+						// 	$this.hide()
+						
+						// 优化2
+						let $this = jQuery(this);
+						$this[$this.css("display") === "none"?"show":"hide"]();
+					})
+				}
+			})
+
+			// 向外界暴露的接口
+			window.$ = window.jQuery = jQuery;
+
+		})(window)
+
+
+		
+
+		$("div").css({
+			border:"1px solid blue",
+			fontWeight: "700"
+		});
+	</script> 
+</body>
+</html>

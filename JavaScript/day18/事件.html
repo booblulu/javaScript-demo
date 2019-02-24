@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<!-- 1.高耦合 -->
+	<div onclick="console.log('hello')">abc</div>
+
+	<!--  -->
+	<div onclick="f1()">abc</div>	
+
+	<div id="hi">abc</div>	
+
+	<div id="content">100</div>
+
+</body>
+<script type="text/javascript">
+
+	var div = document.getElementById("content");
+	// 多次绑定，按顺序执行
+	div.addEventListener("click",function(){
+		alert("1");
+	});
+	div.addEventListener("click",function(){
+		alert("2");
+	});
+
+	// 事件只触发一次
+	div.addEventListener("click",function f1(){
+		// f1只能在函数体内访问 严格模式下替代arguments.callee
+
+		alert("3");
+
+		// 对事件解绑
+
+		// 严格模式之前
+		// var _this = arguments.callee; // 当前函数本身
+		// div.removeEventListener("click",_this);
+
+		// 严格模式 es6-es7-es8都是在严格模式下执行的，arguments.callee在严格模式下禁用
+		div.removeEventListener("click",f1);
+
+
+
+	});
+	
+
+	// 2个函数指向的内存地址是不同的
+	console.log(function(){} === function(){});
+
+	// 绑定
+	div.addEventListener("click",f4);
+		function f4() {
+			alert("4");
+	}
+
+	// 解绑：必须要有函数的内存地址(函数的命名) 
+	div.removeEventListener("click",f4);
+
+
+
+	function f1() {
+		console.log("hello f1");
+	}
+
+	var divHeader = document.getElementById('hi');
+	divHeader.onclick = function(){
+		console.log("hello 3.0");
+	}
+
+	// 以上三种都是DOM0时代的事件处理方法
+	// DOM0：是指DOM标准之前浏览器提供的对DOM的相关操作
+	// 存在的问题：
+	// 事件只能绑定一次，如果多次绑定，会导致覆盖。
+
+	// DOM0-DOM2之间 IE(6/7/8)出现了
+	//   dom.attachEvent("onclick",function(){
+	//		获取事件对象:window.event 
+	// 		阻止冒泡：window.event.cancelBubble = true;
+	//		阻止默认行为：window.event.returnValue = false 
+	//   })
+	// 对同一个元素绑定了多个同类型事件，会按倒序触发
+	// 事件的解绑：dom.detachEvent("onclick",function(){});
+
+
+	// DOM2 -> IE11、Edge
+	// dom.addEventListener("click",function(){
+	// 		获取事件对象：e
+	// 		阻止冒泡：e.stopPropagation()
+	// 		阻止默认行为：e.preventDefault();
+	// 		事件末尾，通过return false同时实现组织冒泡和阻止默认行为
+	//   })
+	// 事件的解绑： dom.removeEventListener("click",function(){})
+	// addEventListener支持事件流的操作
+	// 事件流的三个阶段：捕获-->目标元素阶段-->冒泡
+	// dom.addEventListener("click",回调函数,false)
+	// 		第三个参数：false 表示在冒泡阶段触发 
+	// 		           true  表示在捕获阶段触发 
+
+
+
+	// caller 严格模式不可用-> es5~esn
+	function f1(){
+		console.log(f1.caller); // null
+	}
+	
+	function f2() {
+		f1();
+	}
+	f2();
+	// 总结
+	// caller 用来表示当前函数是在哪个函数内部调用的
+	// 如果本次是在某个函数内部调用的，caller指向该函数
+	// 如果本次不是在某个函数内部调用的，caller指向null
+
+</script>
+</html>
