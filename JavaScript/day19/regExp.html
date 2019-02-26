@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+
+	// g 全局
+	// i 忽略大小写
+	// m 多行搜索
+	var str = "[Object Array]";
+	var arr = str.replace(/^\[Object |\]$/g,"").toLowerCase();
+	console.log(arr);
+	console.log(str.replace(/[^\s]+\s|\]$/g,""));
+	var a = "   ddd dd d   ";
+	console.log(a);
+	console.log(a.replace(/^\s+|\s+$/g,""));	
+</script>
+</html>

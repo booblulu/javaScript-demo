@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<button id="user">用户模块</button>
+	<button id="product">商品模块</button>
+	<button id="cart">购物车模块</button>
+</body>
+<!-- <script src="js/require.js"></script> -->
+<!-- main.js 入口文件 -->
+<!-- <script src="js/main.js"></script> -->
+
+<!-- 简便写法 -->
+<!-- 注意：main内的模块调用的路径 -->
+<script data-main="js/main" src="js/utils/require.js"></script>
+
+
+<script type="text/javascript">
+	// 模块化
+
+	// AMD: async module define --> requireJS
+	// CMD: common module define --> seajs --> 作者放弃了
+	// CommonJS --> Node
+
+	// AMD和CMD的不同之处
+	// amd需要前置依赖，cmd依赖就近
+	// amd通过define定义，return导出
+	// cmd不需要定义，只需要最后通过module.exports导出
+</script>
+</html>
