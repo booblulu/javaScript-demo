@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#ss01-ss{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #888;
+		}
+	</style>
+</head>
+<body>
+	<div id="ss01-ss"></div>
+</body>
+<script type="text/javascript">
+	// 选择器引擎
+
+	console.log($("#id"));
+	console.log($(".head"));
+
+
+	function $(selector){
+		/*	
+		 * id命名规范
+		 * 必须以字母 A-Z 或 a-z 开头
+		 * 其后的字符：字母(A-Za-z)、数字(0-9)、连字符("-")、下划线("_")、冒号(":") 以及点号(".")
+		 * 值对大小写敏感
+		*/
+		var id = /^#[a-zA-Z][a-zA-Z0-9-_\.:]*$/;  // [^\d] [\D] 都是不为数字.
+		var cs = /^\.[a-zA-Z][a-zA-Z0-9-_\.:]*$/;
+		if (id.test(selector)) {
+			return "id";
+		} else if (cs.test(selector)) {
+			return "class";
+		} else if (/^[a-zA-Z][0-9a-zA-Z]+$/.test(selector)) {
+			return selector;
+		} else {
+			return false;
+		}		
+		
+	}
+</script>
+</html>
