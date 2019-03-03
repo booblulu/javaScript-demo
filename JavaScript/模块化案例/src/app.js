@@ -9,7 +9,8 @@ require.config({
 	}
 })
 
-require(["jquery", "saleman/index"],function($, salemanIndex){
+require(["jquery", "router"],function($, router){
+// require(["jquery", "saleman/index", "router"],function($, salemanIndex, router){
 	// 事件委托:将事件绑定在父元素上，由子元素触发
 	// 第二个为触发的元素
 
@@ -22,7 +23,8 @@ require(["jquery", "saleman/index"],function($, salemanIndex){
 			// 销售员
 			
 			// 3.调用销售员模块
-			salemanIndex();
+			router.push({ path:"/saleman"});
+			// salemanIndex();
 
 		} else if ( $(this).hasClass("aside-car") ) {
 			alert("汽车");
@@ -36,3 +38,5 @@ require(["jquery", "saleman/index"],function($, salemanIndex){
 	// 默认展示第一个
 	$(".aside .aside-item:eq(0)").trigger("click");
 })
+
+
