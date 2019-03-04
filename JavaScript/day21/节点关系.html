@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div>
+		<a href="#">a</a>
+		<span>span</span>
+		<!-- 33 -->
+		<button>button</button>
+		<p>	
+			ppp
+			<span>123</span>
+		</p>
+		<img src="pic1.jpg"/>
+		<img />
+	</div>
+</body>
+<script type="text/javascript">
+	var span = document.getElementsByTagName("span")[0];
+	// 前者为新版浏览器||后者为IE678
+	// 下一个节点
+	var nextDom = span.nextElementSibling || span.nextSibling;
+	console.log(nextDom);
+
+	// 上一个节点
+	var previousDom = span.previousElementSibling || span.previousSibling;
+	console.log(previousDom);	
+
+	var div = document.getElementsByTagName("div")[0];
+
+	// 新版浏览器指第一个元素节点(标签) || 新版浏览器指第一个节点包括空节点、IE6-8指第一个元素节点(标签)
+	var first = div.firstElementChild || div.firstChild;	
+	console.log(first);
+
+	// 新版浏览器指最后一个元素节点(标签) || 新版浏览器指最后一个节点包括空节点、IE6-8指最后一个元素节点(标签)
+	var last = div.lastElementChild || div.lastChild;	
+	console.log(last);
+	
+	// 所有子节点
+	// 1 元素节点  
+	// 2.属性节点
+	// 3.文本节点
+	var nodes = div.childNodes;	
+	console.log(nodes);
+
+	// 所有元素节点(标签)
+	var newList = [];
+	for (var i = 0; i < nodes.length; i++) {
+		var node = nodes[i];
+		if(node.nodeType === 1){
+			newList.push(node);
+		}
+	}
+	console.log(newList);
+
+	// IE678 注释也会当做节点
+	var nodeList = div.children;
+	console.log(nodeList);	
+
+	// 获取任意节点
+	// 获取p的父节点，然后获取父节点的所有子节点，按数组下标任意获取
+	console.log(span.parentNode.children);
+
+	// DOM节点操作
+	// 1.创建节点
+	var p = document.createElement("p"); //创建标签
+	var text = document.createTextNode("33");
+	p.innerHTML = "edd";
+	// 追加到尾部
+	// div.appendChild(p);
+	// 追加到开头，（添加的元素，插入的位置元素）
+	div.insertBefore(p,first);
+
+	// 删除节点
+	// p.remove();
+
+	// 另一种删除节点:自杀
+	var ps = document.getElementsByTagName("p")[0];
+	ps.parentNode.removeChild(ps);
+
+	// 复制节点 true深拷贝  false浅拷贝
+	console.log(div.cloneNode(false));
+	console.log(div.cloneNode(true));
+
+
+	// 节点属性
+	var img = document.getElementsByTagName("img")[0];
+	// 获取属性
+	console.log(img.getAttribute("src"));
+	// 精准获取属性值
+	console.log(img.src);
+
+	// 设置属性
+	var img2 = document.getElementsByTagName("img")[1];
+	img2.setAttribute("src","pic1.jpg");
+	// 不能设置中文
+	img2.setAttribute("aaa","33");
+	console.log(img2.getAttribute("aaa"));
+
+</script>
+</html>
