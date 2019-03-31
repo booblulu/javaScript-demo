@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>event 事件对象</title>
+</head>
+<body>
+	<button id="btn">点我</button>
+
+	<script type="text/javascript">
+		// 事件对象 event
+
+		// 现在 || IE678
+		// var event = event || window.event;
+
+		var btn = document.getElementById('btn');
+
+		btn.onclick = (event)=>{
+			var event = event || window.event;
+			console.log(event);
+		}
+
+		btn.onmouseover = (event)=>{
+			var event = event || window.event;
+			console.log(event.type);
+			console.log(event.target);
+
+			// screenX | screenY 光标相对于该屏幕的水平|垂直位置
+			console.log(event.screenX,event.screenY);
+
+			// clientX | clientY 光标相对于该网页的水平|垂直位置，以可视区域为基准，类似固定定位
+			console.log(event.clientX,event.clientY);
+
+			// pageX | pageY 光标相对于该网页的水平|垂直位置(不适用于IE)，以当前文档(相对定位)为标准
+			console.log(event.pageX,event.pageY);
+		}
+
+		// event 常用属性	
+		// type 事件的类型
+		// target 被事件传送到的对象			
+		// width | height 该窗口或框架的宽度 | 高度
+		// data	返回拖拽对象的URL字符串
+
+		// onmouseup 鼠标弹起
+
+	</script>
+</body>
+</html>

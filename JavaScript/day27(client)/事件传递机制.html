@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>事件传递机制</title>
+	<style type="text/css">
+		#father {
+			width: 600px;
+			height: 600px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="father">
+		<button id="btn">点我</button>
+	</div>
+</body>
+<script src="js/myFun.js"></script>
+<script type="text/javascript">
+	// 冒泡机制
+	var father = $('father');
+	var btn = $("btn");
+
+	btn.onclick = (event)=>{
+		alert("点击了我");
+		stopPro(event);
+	};
+
+	father.onclick = ()=>{
+		alert("点击了父标签");
+	}
+
+	document.onclick = ()=>{
+		alert("点击了文档");
+	}
+
+</script>
+</html>

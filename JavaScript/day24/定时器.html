@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>定时器</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	// 第一种
+	window.setInterval("console.log('haha')",1000);
+
+	// 第二种
+	setInterval(()=>{
+		console.log('hello');
+	},1000);
+		
+	// 第三种
+	function test() {
+		console.log('hi');
+	}
+
+	// 函数加括号是执行的意思，获取执行结果，所以不要加括号
+	setInterval(test,1000);
+</script>
+
+</body>
+</html>

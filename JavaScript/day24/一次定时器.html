@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>一次定时器</title>
+</head>
+<body>
+	<button id="btn">3秒后吃饭</button>
+
+	<button id="stop">停止计时</button>
+
+	<script type="text/javascript">
+		window.onload = function () {
+			var btn = document.getElementById('btn');
+			var stop = document.getElementById('stop');
+
+			var timer = null;
+
+			btn.onclick = ()=>{
+				clearTimeout(timer);
+
+				timer = setTimeout(()=>{
+					alert("该吃饭了");
+				},3000);
+			}
+
+			stop.onclick = ()=>{
+				clearTimeout(timer);
+			}
+		}
+	</script>
+</body>
+</html> 

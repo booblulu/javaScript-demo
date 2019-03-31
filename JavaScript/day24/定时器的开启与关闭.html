@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>定时器的开启与关闭</title>
+</head>
+<body>
+	<button id="btn1">开启定时器</button>
+	<button id="btn2">关闭定时器</button>
+
+	<script type="text/javascript">
+
+
+		var btn1 = $("btn1");
+		var btn2 = $("btn2");
+
+		var height = 150,
+			timer = null;
+
+		// 开启定时器
+		btn1.onclick = ()=>{
+			timer = setInterval(()=>{
+				height += 1;
+				console.log(`身高是${height}cm`);
+			},1000);
+		}
+
+
+		// 结束定时器
+		btn2.onclick = ()=>{
+			clearInterval(timer);
+		}		
+
+
+		function $(id) {
+			return typeof id === "string" ? document.getElementById(id) : null;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>常用函数库</title>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+
+	<script src="js/Underscore-min.js"></script>
+	<script type="text/javascript">
+		// Underscore javascript使用库
+
+		var dataArr = ["张三", 18, "李四", 22];
+
+		// 使用_下划线调用
+		
+		// 遍历
+		_.each(dataArr,(item, index, arr)=>{
+			console.log(item,index,arr);
+		});
+
+		// 删除数组参数
+		console.log(_.without(dataArr,"张三"));
+
+		// 随机数
+		console.log(_.random(-5,5));
+
+
+
+	</script>
+</body>
+</html>

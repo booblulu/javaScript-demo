@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>放置定时器累加</title>
+	<style type="text/css">
+		#box {
+			width: 100px;
+			height: 100px;
+			background: orange;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+
+	<script type="text/javascript">
+		var box = document.getElementById("box");
+		var height = 0;
+
+		var timer = null;
+
+		// 先清除后设置，防止定时器累加
+		box.onmouseover = ()=>{
+			clearInterval(timer);
+
+			timer = setInterval(()=>{
+				height += 1;
+				console.log(height);
+			},1000);
+		}
+	</script>
+</body>
+</html>

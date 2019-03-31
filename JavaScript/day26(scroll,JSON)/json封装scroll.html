@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>json封装scroll</title>
+	<style type="text/css">
+		body {
+			height: 3000px;
+		}
+	</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		// BackCompat = 怪异模式 quirks mode
+		// CSS1Compat = 严格模式 strict mode
+
+
+		/*
+		 * 获取滚动的头部距离和左边距离
+		 * scroll().top scroll().left
+		 * @returns {*}
+		 */
+		function scroll() {
+			if (window.pageYOffset !== null) {
+				return {
+					top : window.pageYOffset,
+					left : window.pageXOffset
+				}
+			} else if (document.compatMode === "CSS1Compat") {
+				return {
+					top : document.documentElement.scrollTop,
+					left : document.documentElement.scrollLeft
+				}			
+			} else {
+				return {
+					top : document.body.scrollTop,
+					left : document.body.scrollLeft
+				}					
+			}
+		}
+
+		window.onscroll = ()=>{
+			console.log(scroll().top);
+		}
+
+	</script>
+</body>
+</html>

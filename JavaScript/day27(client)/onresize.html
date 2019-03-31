@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>onresize</title>
+</head>
+<body>
+
+</body>
+<script src="js/myFun.js"></script>
+<script type="text/javascript">
+	
+
+	// 初始化
+	backColor();
+
+	// 屏幕发生改变的时候执行，自适应页面布局，多屏幕适配
+	window.onresize = backColor;
+
+	function backColor() {
+		if (client().width >= 960) {
+			colors("red");
+		} else if (client().width >= 640) {
+			colors("blue");
+		} else {
+			colors("green");
+		}
+	}
+
+	function colors(color) {
+		document.body.style.background = color;
+	}
+</script>
+</html>

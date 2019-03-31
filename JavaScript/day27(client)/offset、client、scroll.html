@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>offset、client、scroll</title>
+	<style type="text/css">
+		#box {
+			width: 300px;
+			height: 200px;
+			padding: 10px;
+			border: 10px solid black;
+			background: pink
+		}
+
+		#box p {
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<p>hello!</p>
+		<p>hello!</p>
+		<p>hello!</p>
+		<p>hello!</p>
+		<p>hello!</p>
+		<p>hello!</p>
+		<p>hello!</p>
+		<p>hello!</p>
+	</div>
+</body>
+<script type="text/javascript">
+	var box = document.getElementById("box");
+	// width | height
+	// border + padding + content
+	console.log(box.offsetWidth,box.offsetHeight);
+	// padding + content
+	console.log(box.clientWidth,box.clientHeight);
+	// padding + content(能够产生滚动的内容)
+	console.log(box.scrollWidth,box.scrollHeight);
+
+
+	// left | Top
+	// 当前盒子距离有定位的父盒子左边|上边的距离
+	console.log(box.offsetLeft,box.offsetTop);
+	// 左边|上边边框的宽度
+	console.log(box.clientLeft,box.clientTop);
+	// 左边|上边滚动的长度
+	console.log(box.scrollLeft,box.scrollTop);	
+
+	
+</script>
+</html>

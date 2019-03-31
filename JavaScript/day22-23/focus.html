@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="text" placeholder="请输入姓名" id="userName">
+</body>
+<script type="text/javascript">
+	// onfocus和onblur 需要在onload事件中才能触发
+	window.onload = function () {
+		var name = document.getElementById("userName");
+		name.onfocus = function(){
+			this.style.outline = "none";
+			this.style.border = "2px solid green";
+		};
+
+		name.onblur = ()=>{
+			console.log(name.value);
+		}
+	}
+	
+</script>
+</html>
