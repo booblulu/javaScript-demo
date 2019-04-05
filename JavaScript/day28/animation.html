@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>综合动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            top: 100px;
+            background: greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">向右走</button>
+    <div id="box"></div>
+</body>
+<script src="js/myFun.js"></script>
+<script>
+    var timer = null,
+        i = 0,
+        target = 600; //终点
+    $("btn").onclick = ()=>{
+        clearInterval(timer);
+
+        timer = setInterval(()=>{
+            i += 10;
+            $("box").style.left = `${i}px`;
+
+            if (i >= target) {
+                i = target;
+                clearInterval(timer);
+            }
+        },10);
+
+       
+    }
+</script>
+</html>
