@@ -4,15 +4,11 @@ const gulp = require('gulp'),
       rename = require('gulp-rename'),
       babel = require('gulp-babel'),
       sourcemaps = require('gulp-sourcemaps'),
-<<<<<<< HEAD
       cssmin = require('gulp-cssmin'),
       imagemin = require('gulp-imagemin'),
       watch = require('gulp-watch'),
       browserSync = require('browser-sync').create(),
       reload = browserSync.reload;
-=======
-      cssmin = require('gulp-cssmin');
->>>>>>> 3df58dd98eff00afee9320a2a3b7ba1dc46a02b1
 
 // gulp任务，可以增加多个
 // 压缩名字，回调函数
@@ -25,15 +21,7 @@ const gulp = require('gulp'),
 //         .pipe(gulp.dest('./bulid/js'));
 // });
 
-<<<<<<< HEAD
-// Static server
-
-
-=======
->>>>>>> 3df58dd98eff00afee9320a2a3b7ba1dc46a02b1
 gulp.task('js',()=>{
-    // 流操作，读取文件
-    return gulp
         // 文件路径
         .src(['./src/js/**/*.js'])    
         // 启用sourcemap
