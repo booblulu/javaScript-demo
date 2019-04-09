@@ -101,7 +101,7 @@
 * 卸载一个包 `npm uninstall jquery@1.5.1 --save`
     - 卸载简写 ```npm un jquery@1.5.1 --S`
 * 下载简写 ```npm i 包名```
-* __小结:以上简写:  uninstall -> un ,install -> i , --save -> -S__
+* __小结:以上简写:  uninstall -> un ,install -> i , --save -> -S , --dev -> -D__
 * 查看包的信息
     - `npm info jquery`
 * 查看包的信息中的某个字段(版本)(掌握)
