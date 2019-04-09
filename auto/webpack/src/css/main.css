@@ -1,0 +1,13 @@
+body {
+    background: pink url('D:/Program Files/Git/storeroom/basics/自动化工具/webpack/src/images/a.jpg') no-repeat;
+}
+div {
+    width: 100px;
+    height: 100px;
+    background: greenyellow;
+    transform: rotate(95deg);
+    transition: transform .4s;
+}
+div:hover {    
+    transform: rotate(150deg);
+}
