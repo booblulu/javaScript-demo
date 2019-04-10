@@ -1,9 +1,9 @@
 body {
-    background: pink url('D:/Program Files/Git/storeroom/basics/自动化工具/webpack/src/images/a.jpg') no-repeat;
+    background: pink url('../images/a.jpg') no-repeat;
 }
 div {
     width: 100px;
-    height: 100px;
+    height: 150px;
     background: greenyellow;
     transform: rotate(95deg);
     transition: transform .4s;

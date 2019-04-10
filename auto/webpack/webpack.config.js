@@ -1,18 +1,18 @@
-const path = require('path');
+const path = require("path");
 
 
 module.exports = {
-    mode: 'development',
-    entry: './src/js/a.js',
+    mode: "development",
+    entry: "./src/js/a.js",
     // entry: {
     //     a: './src/js/a.js',
     //     b: './src/js/b.js'
     // },
     output: {
-        path: path.resolve(__dirname,'bulid'),
+        path: path.resolve(__dirname,"bulid"),
         // a.min.js,b.min.js
         // filename: '[name].min.js'
-        filename: 'bundle.min.js'
+        filename: "bundle.min.js"
     },
     module: {
         // 模块的规则
@@ -22,18 +22,37 @@ module.exports = {
             // 先执行后面，再向前执行
             {
                 test: /\.css$/, 
-                use: ['style-loader','css-loader','postcss-loader']
+                use: ["style-loader","css-loader","postcss-loader"]
             },
             {
-                test: /\.{jpg|png|gif}$/i,
-                use: ['url-loader']
-                // use: {
-                //     loader: 'file-loader',
-                //     options: {
-                //         outputPath: 'images/'
-                //     }
-                // }
-            }
+                test: /\.(png|jpg)$/,
+                loader: "url-loader?limit=8192&name=images/[name].[ext]"
+                // loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'
+            },
+            {
+                test: /\.less$/i,
+                use: ["style-loader","css-loader","less-loader"]
+            },
+            {
+                test: /\.jsx?/i,
+                // 不编译
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ["@babel/preset-env"]
+                    }
+                }
+            },
+            {
+                test: /\.js$/i,
+                loader: "eslint-loader",
+                exclude: /node_modules/,
+                options: {
+
+                }
+            }             
         ]
-    }
+    },
+    devtool: "source-map"
 };
