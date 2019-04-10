@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>import</title>
+    <style>
+        body {
+            background: #888;
+        }
+
+        canvas {
+            background: pink;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <video src="video/demo.mp4" width="0" height="0" autoplay loop></video>
+    <canvas width="400" height="300">
+        您的浏览器不支持canvas!
+    </canvas>
+    <script>      
+        var canvas = document.querySelector("canvas");
+        var video = document.querySelector("video");
+        if (canvas.getContext) {
+            var ctx = canvas.getContext("2d");
+            setInterval(()=>{
+                ctx.drawImage(video,0,0,canvas.width,canvas.height);
+            },100);
+            // var img = new Image();        
+            // img.onload = ()=>{              
+            //     // 装载图片
+            //     ctx.drawImage(img,0,0,canvas.width,canvas.height);
+            // }
+            // img.src = "images/1.jpg";
+            
+        }
+    </script>
+</body>
+</html>
