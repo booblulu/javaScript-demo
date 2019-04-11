@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>init</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        姓名：{{name}}<br>
+        <strong v-bind:title="calcBirth()">年龄：{{age+5}}<br></strong>
+        <strong :title="calcBirth()">年龄：{{age+5}}<br></strong>
+        <!-- 计算出生年份太复杂，使用mehods -->
+        <!-- 出生日期：{{new Date().getFullYear()-age}} -->
+        <strong :class="class_str" :style="style_str">出生日期：{{calcBirth()}}</strong>
+        <strong :class="class_arr" :style="style_arr">出生日期：{{calcBirth()}}</strong>
+        <img :src="url" width="100" height="100" alt="">
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            // 根元素(挂载点)，只在el内起作用
+            el: "div",
+            // vue需要的数据
+            data: {
+                name: "blue",
+                age: 18,
+                url: "https://cn.bing.com/sa/simg/hpc26.png",
+                class_str: "aaa bbb ccc",
+                class_arr: ["aaa","bbb","ccc"],
+                style_str: "color:pink;font-size:18px",
+                style_arr: {color:"red","font-size":"18px"}
+            },
+            // 复杂运算
+            methods: {
+                calcBirth(){
+                    return new Date().getFullYear() - this.age + "年出生";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
