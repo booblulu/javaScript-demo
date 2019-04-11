@@ -9,7 +9,8 @@
 <body>
     <div>
         {{num}}
-        <button v-on:click="sum()">+1</button>
+        <button v-on:click="sum">+1</button>
+        <button @click="sum()">+1</button>
     </div>
     <script src="js/vue.js"></script>
     <script>

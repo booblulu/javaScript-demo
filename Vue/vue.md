@@ -181,3 +181,26 @@
 ```
 
 ### vue事件 (v-on)
+```html
+    <div>
+        {{num}}
+        <!-- 需要什么事件写什么事件，无参数可以不加括号 -->
+        <button v-on:click="sum()">+1</button>
+        <!-- 简写 -->
+        <button @click="sum()">+1</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        new Vue({
+            el: "div",
+            data: {
+                num: 0
+            },
+            methods:{
+                sum(){
+                    this.num++;
+                }
+            }
+        });
+    </script>
+```
