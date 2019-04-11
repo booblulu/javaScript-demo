@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div  v-html="str">
+        <!-- 会转义成文本节点，防止注入攻击 -->
+        <strong>{{str}}</strong> 
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        new Vue({
+            el: "div",
+            data: {
+                str: `<p>dddddddddddddddddddddddddddddddddd
+                    333333333333333333333333333
+                    wwwwwwwwwwwwwwww</p>`
+            }
+        });
+    </script>
+</body>
+</html>

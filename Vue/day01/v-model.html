@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <!-- 数据和input相互绑定，一方变另一方也会变 -->
+        <input type="text" v-model="name">       
+        <p>
+            {{name}}
+        </p>
+        <!-- 操作的数据是字符串 -->
+        <input type="text" v-model="n1">+
+        <input type="text" v-model="n2">=
+        {{n1+n2}}
+        <!-- 当然官方不推荐 -->
+        {{parseInt(n1)+parseInt(n2)}}
+        <!-- 推荐 -->
+        {{sum()}}
+        
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "div",
+            data: {
+                name: "lulu",
+                n1: 2,
+                n2: 1
+            },
+            methods: {
+                sum(){
+                    return parseInt(this.n1)+parseInt(this.n2);
+                }
+            }
+        });
+    </script> 
+</body>
+</html>

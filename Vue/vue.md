@@ -3,6 +3,9 @@
 ### 开发模式
 
 * MVC 数据(后台接口)，表现(视图)，行为(js)
+    - model      数据层data
+    - view       表现层html
+    - controller 控制器vm
 * MVP 
 * MVVM
 
@@ -26,7 +29,7 @@
     <script src="js/vue.js"></script>
     <script>
         let vm = new Vue({
-            // 根元素(挂载点)，只在el内起作用
+            // 根元素(挂载点)，只在el内起作用(只对第一个检测到的div起作用)
             el: "div",
             // vue需要的数据
             data: {
@@ -41,7 +44,6 @@
             }
         });
     </script>
-</body>
 ```
 
 ### 指令(directive)
@@ -93,3 +95,89 @@
                 });
             </script>
         ```
+* v-model 数据双向绑定，仅用于输入组件
+    - 对dom进行操作，更快更便捷
+    ```html
+        <div>
+            <!-- 数据和input相互绑定，一方变另一方也会变 -->
+            <input type="text" v-model="name">
+            <p>
+                {{name}}
+            </p>
+        </div>
+        <script src="js/vue.js"></script>
+        <script>
+            let vm = new Vue({
+                el: "div",
+                data: {
+                    name: "lulu"
+                }
+            });
+        </script>
+    ```
+    - 操作的数据是字符串
+    ```html
+        <div>
+            <!-- 操作的数据是字符串 -->
+            <input type="text" v-model="n1">+
+            <input type="text" v-model="n2">=
+            <!-- 修改n1为10 结果为101 -->
+            {{n1+n2}} 
+            <!-- 当然官方不推荐复杂算法 -->
+            {{parseInt(n1)+parseInt(n2)}}
+            <!-- 推荐 -->
+            {{sum()}}       
+        </div>
+        <script src="js/vue.js"></script>
+        <script>
+            let vm = new Vue({
+                el: "div",
+                data: {
+                    name: "lulu",
+                    n1: 0,
+                    n2: 1
+                },
+                methods: {
+                    sum(){
+                        return parseInt(this.n1)+parseInt(this.n2);
+                    }
+                }
+            });
+        </script> 
+    ```
+* v-test 等同于{{name}}
+```html
+    <div v-text="'zi'+str">
+        <!-- 不会显示两个 -->
+        {{str}}
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        new Vue({
+            el: "div",
+            data: {
+                str: "lulu"
+            }
+        });
+    </script>
+```
+* v-html
+```html
+    <div v-html="str">
+        <!-- 采取段落，会转义成文本节点，防止注入攻击 -->
+        {{str}}
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        new Vue({
+            el: "div",
+            data: {
+                str: `<p>dddddddddddddddddddddddddddddddddd
+                    333333333333333333333333333
+                    wwwwwwwwwwwwwwww</p>`
+            }
+        });
+    </script>
+```
+
+### vue事件 (v-on)
