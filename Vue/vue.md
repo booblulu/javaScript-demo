@@ -100,7 +100,7 @@
 #### v-model 
 * 数据双向绑定，仅用于输入组件
 * 对dom进行操作，更快更便捷
-```html
+```
     <div>
         <!-- 数据和input相互绑定，一方变另一方也会变 -->
         <input type="text" v-model="name">
