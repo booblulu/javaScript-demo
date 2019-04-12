@@ -46,8 +46,7 @@
     </script>
 ```
 
-### 指令(directive)
-补充了html的属性
+### 指令(directive) 补充了html的属性
 
 #### v-bind 
 * 可以在属性中输出，并且去掉花括号，会当做遍变量处理
@@ -149,8 +148,7 @@
     </script> 
 ```
 
-#### v-test 
-等同于{{name}}
+#### v-test 等同于{{name}}
 ```html
     <div v-text="'zi'+str">
         <!-- 不会显示两个 -->
@@ -255,8 +253,7 @@
     - 处理自身事件 self
     - 捕获的事件 capture
 
-#### v-once 
-只会渲染一次，不会跟着数据的改变而改变，类似于常量
+#### v-once 只会渲染一次，不会跟着数据的改变而改变，类似于常量
 ```html
     <div>
         <button @click="fn()">+1</button>
@@ -279,8 +276,7 @@
     </script>
 ```
 
-#### v-show 
-控制display的显示与隐藏
+#### v-show 控制display的显示与隐藏
 ```html
     <div>
         <button>显示隐藏</button>
@@ -298,8 +294,7 @@
     </script>
 ```
 
-#### v-if 
-会删除元素，换成注释，可以缩减html标签数，增加性能
+#### v-if 会删除元素，换成注释，可以缩减html标签数，增加性能
 ```html
     <div>
         <button>显示隐藏</button>
