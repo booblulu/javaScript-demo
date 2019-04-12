@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div @click="fn1">
+            <button @click.once="fn2">fn2</button>
+        </div>    
+        <form action="" method="post" @submit.prevent="submit(this)">
+            <button type="submit">提交</button>
+        </form>  
+        <button @click.native="fn()">按钮</button>
+        <input type="text" name="" id="" @keydown.13="fn()">
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        function fn(){
+            console.log("fn");
+        }
+        new Vue({
+            el: "div",
+            data : {
+
+            },
+            methods: {
+                fn(){
+                    console.log("vue-fn");
+                },
+                fn1(){
+                    alert("111");
+                },
+                fn2(){
+                    alert("222");
+                },
+                submit(a){
+                    console.log(a)
+                }
+            }
+        });
+    </script>
+</body>
+</html>

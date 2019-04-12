@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #888;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <!-- 超级简单也可以直接写 -->
+        <button @click="flag=false">显示隐藏</button>
+
+        <button @click="fn()">显示隐藏</button>
+        <div class="box" v-show="flag"></div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        new Vue({
+            el: "div",
+            // boolean不需要双引号
+            data: {
+                flag: true
+            },
+            methods: {
+                fn(){
+                    this.flag = !this.flag;
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>

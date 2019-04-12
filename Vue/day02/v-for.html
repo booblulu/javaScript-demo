@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <ul>
+            <li v-for="user,index in users" :key="user.id">
+                {{index}}.  用户名：{{user.name}} 密码：{{user.password}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="val,key in style">
+                {{key}}:{{val}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="s,index in str">
+                {{index}}:{{s}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="i in 20">
+                {{i}}
+            </li>
+        </ul>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        new Vue({
+            el: "div",
+            data: {
+                users:[
+                    {id: "2",name: "lulu",password: "123456"},
+                    {id: "7",name: "fengfeng",password: "987765"}
+                ],
+                style:{
+                    width: "200px",
+                    height: "100px"
+                },
+                str: "hahahahahahaha"
+            }
+        })
+    </script>
+</body>
+</html>

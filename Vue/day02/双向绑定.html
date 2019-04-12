@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <input type="text" name="" id="" v-model="name"><br>
+        姓名：{{name}}<br>
+        年龄：{{age}}
+    </div>
+
+    <script>
+        // 确定区域
+        var el = document.getElementById("box");
+        // 存储当前状态
+        var template = el.innerHTML;
+        // 内部数据
+        var _data = {
+            name: "lulu",
+            age: 18
+        };
+        // 使用代理，监听修改
+        var data = new Proxy(_data,{
+            // 写入数据
+            set(obj, name, value){
+                obj[name] = value;
+                // 每次数据修改后，修改页面数据
+                render();
+            }
+        });
+        // 首次初始化
+        render();
+        // 修改页面数据
+        function render() {
+            // 取出{{xx}}
+            el.innerHTML = template.replace(/\{\{\w+\}\}/g,str=>{
+                // 去掉{{}},只留中间变量
+                var key = str.substring(2,str.length-2);
+                // 返回数据
+                return _data[key];
+            });
+
+            // 找到所有的input，将其转换成数组
+            Array.from(el.getElementsByTagName("input"))
+                // 监测是否有v-model属性
+                .filter(els => els.getAttribute("v-model"))
+                .forEach(input=>{
+                    // 获取model的值
+                    var model = input.getAttribute("v-model");
+                    // 修改input显示的值
+                    input.value = _data[model];
+                    // 同步修改
+                    input.oninput = function(){
+                        data[model] = this.value;
+                    }
+                })
+        }
+        
+        
+        
+    </script>
+</body>
+</html>
