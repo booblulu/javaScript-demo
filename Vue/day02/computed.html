@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        姓<input type="text" v-model="famllyName">
+        名<input type="text" v-model="name" >
+        姓名：<input type="text" v-model="names">
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "div",
+            data: {
+                famllyName: "张",
+                name: "三"
+            },
+            computed: {
+                names:{
+                    get(){
+                        return this.famllyName+this.name;
+                    },
+                    set(value){
+                        this.famllyName = value.substring(0,1);
+                        this.name = value.substring(1);
+                    }                    
+                }
+            }
+        })
+    </script>
+</body>
+</html>

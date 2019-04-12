@@ -37,7 +37,7 @@
         // 修改页面数据
         function render() {
             // 取出{{xx}}
-            el.innerHTML = template.replace(/\{\{\w+\}\}/g,str=>{
+            el.innerHTML = template.replace(/\{\{[\w\.]+\}\}/g,str=>{
                 // 去掉{{}},只留中间变量
                 var key = str.substring(2,str.length-2);
                 // 返回数据

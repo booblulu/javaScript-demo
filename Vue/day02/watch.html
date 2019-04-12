@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" v-model="name">
+        <input type="text" v-model="user.age">
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "div",
+            data: {
+                name: "blue",
+                user: {
+                    name: "lulu",
+                    age: 18
+                }
+            },
+            watch: {
+                name(){
+                    console.log("变了");
+                },
+                "user.age": ()=>{
+                    console.log("age变了");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
