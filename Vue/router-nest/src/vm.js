@@ -4,11 +4,10 @@ import router from "./router";
 
 import "../css/main.css";
 
-// 挂载到vue上
 Vue.use(VueRouter);
 
-let vm = new Vue({
+export default new Vue({
     el: "div",
-    data: {},
+    data:{},
     router
 })

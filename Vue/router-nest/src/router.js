@@ -1,17 +1,16 @@
 import VueRouter from "vue-router";
 import Header from "./components/header";
+import News, {router as new_router} from "./components/news";
 import Home from "./components/home";
-import News from "./components/news1";
 
-// 路由表
 export default new VueRouter({
-    routes: [
+    routes:[
         {
             path: "/index",
             name: "index",
             components: {
                 header: Header,
-                default: Home
+                default: Home   
             }
         },
         {
@@ -19,8 +18,10 @@ export default new VueRouter({
             name: "news",
             components: {
                 header: Header,
-                default: News
-            }
+                default: News            
+            },
+            // 子路由
+            children: new_router
         }
     ]
 })

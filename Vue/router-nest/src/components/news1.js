@@ -1,3 +1,7 @@
 export default {
-    template: "<div>新闻1</div>"
+    template : `
+        <div>
+            新闻1111
+        </div>
+    `
 }

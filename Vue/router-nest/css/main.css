@@ -1,11 +1,11 @@
 .nav {
     overflow: hidden;
 }
+
 .nav .nav-item{
     float: left;
-    color: #888;
     margin-right: 10px;
-    text-decoration: none;
+    color: #888;
 }
 
 .nav .router-link-active {

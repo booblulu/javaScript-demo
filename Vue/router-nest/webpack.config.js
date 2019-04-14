@@ -1,18 +1,20 @@
 const path = require("path");
 
 module.exports = {
-    mode: "development",
-    entry: "./src/vm.js",
+    mode : "development",
+    entry: "./src/vm",
     output: {
-        path: path.resolve(__dirname,"dests"),
+        path: path.resolve(__dirname,"dest"),
         filename: "bundle.min.js"
     },
-    module: {
+    module:{
         rules:[
             {
-                test:/\.css$/i,
-                use:["style-loader","css-loader"]
+                test:/\.css$/,
+                use: ["style-loader","css-loader"]
             }
         ]
+        
     }
+    
 }

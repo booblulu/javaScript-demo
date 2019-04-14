@@ -525,6 +525,58 @@ es6之后增加了块级作用域。
     j3.show();
 ```
 
-### ES7/ES8
+## ES7
 
-#### 数组 includes
+### 数组
+
+#### includes 数组是否包含value
+```javascript
+    let arr = [2,4,75];
+    let strArr = ["ss","dd"];
+    console.log(arr.includes(2));  // true
+    console.log(arr.includes(7));  // false
+    console.log(strArr.includes("ss"));  // true
+```
+
+#### keys/values/entries(当前仅支持数组)
+
+|          |    数组    |    json   |
+| for...in |  下标(key) |    key    |
+| for...of |  值(value) |     x     |
+
+* keys => 把所有的key拿出来
+* values => 把所有的value拿出来
+* entries => 把所有的key-value拿出来
+```javascript
+    for (let i of strArr.keys()) {
+        console.log(i);   // 0 1 2
+    }
+    for (let i of strArr.values()) {
+        console.log(i);   // ss dd
+    }
+
+    for (let i of strArr.entries()) {
+        console.log(i);   // [0, "ss"] [1, "dd"]
+    }
+    for (let [key, value] of strArr.entries()) {
+        console.log(`${key}:${value}`);   // 0:ss 1:dd
+    }
+```
+
+### 幂
+```javascript
+    // 老方法 2的3次方
+    console.log(Math.pow(2,3)); // 8
+    // 新方法 
+    console.log(2**3); // 8
+```
+
+### padStart/padEnd
+```javascript
+    // padStart 向前增加5个空格
+    console.log(`(`+`abc`.padStart(5, " ")+`)`); // (  abc)
+    // padEnd 向后增加5个空格
+    console.log(`(`+`abc`.padEnd(5, " ")+`)`);   // (abc  )
+```
+
+### generator yield
