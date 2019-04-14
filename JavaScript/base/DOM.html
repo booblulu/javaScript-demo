@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>dom</title>
+	<title>DOM</title>
+
 </head>
 <body>
+	<p>
+		Hello world!
+		<span>lulu</span>
+	</p>
 	<div id="box">
 		<button class="btn">点我</button>
 		<span id="span">
@@ -13,8 +18,54 @@
 			<input type="text" name="">
 		</span>
 	</div>
-
+	
 	<script type="text/javascript">
+		//节点类型，常量IE不支持，为了浏览器兼容性和数字值比较。
+		//在HTML代码中，空格换行也是一个节点
+		var someNode = document.getElementsByTagName("p");
+		//someNode[0]  等价  var someNode = document.getElementsByTagName("p")【0】;
+		if(someNode[0].nodeType == 1){
+			console.log(someNode[0].nodeName);
+			console.log(someNode[0].childNodes.item(0).nodeValue);
+			//someNode[0].childNodes[0]   等价 someNode[0].childNodes.item(0)
+		}
+		
+		/*
+			常用的nodeType 
+			Node.ELEMENT_NODE            1    元素节点
+			Node.ATTRIBUTE               2    属性节点
+			Node.TEXT_BODE               3    文档节点
+			Node.COMMENT_NODE            8    注释节点
+			Node.DOCUMENT_NODE           9    document文本节点
+			Node.DOCUMENT_TYPE_NODE      10   documentType节点
+			Node.DOCUMENT_FRAGMENT_NODE  11   documentFragment节点
+		*/
+
+		//将对象转换为数组,在IE中不支持
+		var array = Array.prototype.slice.call(someNode[0].childNodes,0);
+		console.log(array);
+		console.log(array[0]);
+
+
+
+
+		function convertTOArray(nodes){
+			var array = null;
+			try{
+				array = Array.prototype.slice.call(someNode[0].childNodes,0); //非IE场合
+			} catch(ex){ //IE场合报错就会转移到catch
+				array = new Array();
+				var i = null;
+				for(i in nodes){
+					array.push(i);
+				}
+			}
+			return array;
+		}
+		var arrayNode = convertTOArray(someNode[0].childNodes);
+		console.log(arrayNode);
+		console.log(arrayNode[0]);
+		console.log(arrayNode[1]);
 
 		var span = document.getElementsByTagName('span')[0];
 		var a = document.getElementsByTagName('a')[0];
@@ -80,8 +131,7 @@
 
 		// textContent 会返回所有文本节点，包括子节点
 		console.log(div.textContent);
-
-
+			
 	</script>
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+</html>

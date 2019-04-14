@@ -272,8 +272,49 @@ es6之后增加了块级作用域。
 
 
 ### promise
+
+#### Promise.race
 ```javascript
+    Promise.race([
+        // 谁先来，先用谁
+        $.ajax({url: "xxx/xxx/xxx"}, dataType: "json"),
+        $.ajax({url: "xxx/xxx/xxx"}, dataType: "json"),
+        $.ajax({url: "xxx/xxx/xxx"}, dataType: "json")
+    ]).then(results=>{
+        console.log("success");
+    },err=>{
+        console.log("error");
+    })
+```
+
+#### Promise.all
+```javascript
+    Promise.all([
+        $.ajax(),
+        $.ajax()
+    ]).then(results=>{
+        console.log("success");
+    },err=>{
+        console.log("error");
+    })
+```
+
+#### 异步操作
+```javascript
+    // 解决回调地狱
+    // 什么是回调函数呢？
+    if(null){
+        if(null){
+            if(null){
+                if(null){
+                    // ...n个
+                }
+            }
+        }
+    }
+        
     function getBooks() {
+        // resolve 成功,reject 失败
         return new Promise((resolve,reject)=>{
             $.ajax({
                 url:"/getBooks",
@@ -308,7 +349,39 @@ es6之后增加了块级作用域。
 	}).catch(resErr=>{
         // reject()可以被catch()捕捉到错误信息
     })
+
+    // Promise.all([])
+    function createPromise(url){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                url:"/arr.txt",
+                success(res){
+                    // 成功获取数据
+                    resolve(res);
+                },
+                error(resErr){
+                    // res为错误信息
+                    // 失败执行reject()
+                    reject(resErr);
+                }
+            })
+        });
+    }
+
+    // 需要全部成功
+    Promise.all([
+        createPromise("/json.txt"), 
+        createPromise("/arr.txt"), 
+    ]).then(results=>{
+        // 返回的是个数组arr，存储的是p1,p2的结果
+        let [res1, res2] = results;
+        console.log(` success`);
+    },err=>{
+        console.log(` error`);
+    })
 ```
+
+#### 同步操作
 
 
 ### 面向对象
@@ -451,3 +524,7 @@ es6之后增加了块级作用域。
     }
     j3.show();
 ```
+
+### ES7/ES8
+
+#### 数组 includes

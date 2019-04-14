@@ -13,17 +13,17 @@
 	// 必须使用服务器打开，路径为相对路径./ / ../
 
 	// 模块没有返回值，可直接import
-	import "./log.js"
+	import "./js/log.js"
 
 	// 模块具有返回值
 	// 从cart.js中导入cart模块，并获取返回值，返回值名字叫cart
-	import cart from "./cart.js"   
+	import cart from "./js/cart.js"   
 	console.log(cart);
 	
 
 	// { xx,xx } 为属性 ， car为默认返回值
 	// age as AGE   给age起别名AGE
-	import car , { age as AGE, f1 } from "./car.js"
+	import car , { age as AGE, f1 } from "./js/car.js"
 	car.init();
 	console.log(AGE);
 	f1();

@@ -9,6 +9,19 @@
 <script type="text/javascript">
 	// 正则表达式
 
+	// g 全局
+	// i 忽略大小写
+	// m 多行搜索
+	var str = "[Object Array]";
+	var arr = str.replace(/^\[Object |\]$/g,"").toLowerCase();
+	console.log(arr);
+	console.log(str.replace(/[^\s]+\s|\]$/g,""));
+	var a = "   ddd dd d   ";
+	console.log(a);
+	console.log(a.replace(/^\s+|\s+$/g,""));	
+
+	
+
 	// 1.格式
 	var reg = /a/;
 	var reg1 = /abc/;

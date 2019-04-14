@@ -144,6 +144,50 @@
 			console.log(` error ${resErr}`);
 		})
 
+
+
+		// Promise.all([])
+		
+		var p1 = new Promise((resolve,reject)=>{
+            $.ajax({
+                url:"/json.txt",
+                success(res){
+                    // 成功获取数据
+                    resolve(res);
+                },
+                error(resErr){
+                    // res为错误信息
+                    // 失败执行reject()
+                    reject(resErr);
+                }
+            })
+        });
+
+		var p2 = new Promise((resolve,reject)=>{
+			$.ajax({
+				url:"/arr.txt",
+				success(res){
+					// 成功获取数据
+					resolve(res);
+				},
+				error(resErr){
+					// res为错误信息
+					// 失败执行reject()
+					reject(resErr);
+				}
+			})
+		});
+
+		// 需要全部成功
+		Promise.all([
+			p1, p2
+		]).then(arr=>{
+			// 返回的是个数组arr，存储的是p1,p2的结果
+			let [res1, res2] = arr;
+			console.log(` success`);
+		},err=>{
+			console.log(` error`);
+		})
 		
 
 		// 实际开发中
