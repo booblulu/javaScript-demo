@@ -546,7 +546,217 @@
     * 手动修改路径为path的路径
     * 使用router-link，在页面上会显示为a标签
     ```html
+        <!-- <a href="#/a">页面1</a> -->
         <router-link to="/a">页面1</router-link>
         <router-link to="/b">页面2</router-link>
         <router-link to="/c">页面3</router-link>
     ```
+5. 好处
+    * 不会刷新页面
+    * 便于后退
+    * 用户体验好
+6. 样式
+    * 被选中的路由会有`class="router-link-active"`便于设置样式
+7. 命名路由
+```html
+    <router-link :to="{name:'a'}">页面1</router-link>
+    <script>
+    // 路由表
+    let router = new VueRouter({
+        routes: [
+            // 路由节点
+            {
+                path: "/a",
+                name: "a",
+                component: {
+                    template: "<div>aaa</div>"
+                }
+            }
+        ]
+    });
+    // ...
+    </script>
+```
+8. 参数
+可以有相同的，例如\a || \:id是一样的，会按顺序，先遇到谁用谁
+```html
+    <!-- 命名路由 -->
+    <router-link class="nav" :to="{name:'a',params:{id:44}}">页面1</router-link>
+    <router-link to="/b/58">页面2</router-link>
+    
+    <script>
+    // 路由表
+    let router = new VueRouter({
+        routes: [
+            // 路由节点
+            {
+                path: "/a",
+                name: "a",
+                component: {
+                    template: "<div>id:{{$route.params.id}}</div>"
+                }
+            },
+            {
+                path: "/b/:id",
+                name: "b",
+                component: {
+                    // $route 获取路由信息
+                    template: "<div>id:{{$route.params.id}}</div>"
+                }
+            }
+        ]
+    });
+    // ...
+    </script>
+```
+9. JS控制路由跳转 $router
+```html
+    <div>
+        <div>
+            <button @click="fn1">页面1</button>
+            <button @click="fn2">页面2</button>
+            <button @click="fn3">页面3</button>
+        </div>
+        <!-- vue组件:路由容器 -->
+        <router-view></router-view>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+        // 路由表
+        let router = new VueRouter({
+            routes: [
+                // 路由节点
+                {
+                    path: "/a/:id",
+                    name: "a",
+                    component: {
+                        template: "<div>id:{{$route.params.id}}</div>"
+                    }
+                },
+                {
+                    path: "/b/:id",
+                    name: "b",
+                    component: {
+                        // $route 当前路由内的信息
+                        template: "<div>id:{{$route.params.id}}</div>"
+                    }
+                },
+                {
+                    path: "/c",
+                    name: "c",
+                    component: {
+                        template: "<div>ccc</div>"
+                    }
+                }
+            ]
+        });
+
+        let vm = new Vue({
+            el: "div",
+            data: {},
+            methods: {
+                fn1(){
+                    this.$router.push({
+                        name:"a",
+                        params: {
+                            id: 22
+                        }
+                    });
+                },
+                fn2(){
+                    this.$router.push('/b/39');
+                },
+                fn3(){
+                    this.$router.push('/c');
+                }
+            },
+            router
+        })
+    </script>
+```
+10. history
+    * 是个栈
+    * push(string|Object) 向最后加一条数据
+    * replace(string|Object) 替换最后一个历史记录(当前)
+    * go(int) 正向后，负向前
+11. 监视路由
+    * watch，仅能记录，不能干预。
+    ```javascript
+        watch: {
+            // 新->旧
+            $route(value,old_value){
+                console.log(value,old_value);
+            }
+        }
+    ```
+    * 路由守卫
+
+
+### 多视图
+```html
+    <div>
+        <router-link to="/">首页</router-link>
+        <router-link to="/news">新闻</router-link>
+        <!-- 多视图，需要name命名(命名视图) -->
+        <router-view name="header"></router-view>
+        <router-view></router-view>
+        <router-view name="footer"></router-view>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+        // router
+        const indexCmp = {
+            // 必须要有父标签
+            template: "<div>主页</div>"
+        }
+        const newsCmp = {
+            template: "<div>新闻</div>"
+        }
+        const footerCmp = {
+            template: "<div>主页底部</div>"
+        }
+        const headerCmp = {
+            template: "<div>主页头部</div>"
+        }
+        const footerNewsCmp = {
+            template: "<div>新闻底部</div>"
+        }
+        const headerNewsCmp = {
+            template: "<div>新闻头部</div>"
+        }
+
+        let router = new VueRouter({
+            routes: [
+                {
+                    path: "/",
+                    name: "index",
+                    components:{
+                        default: indexCmp,
+                        header: headerCmp,
+                        footer: footerCmp
+                    }
+                },
+                {
+                    path: "/news",
+                    name: "news",
+                    components:{
+                        default: newsCmp,
+                        header: headerNewsCmp,
+                        footer: footerNewsCmp
+                    }
+                }
+            ]
+        })
+
+        // vue
+        let vm = new Vue({
+            el: "div",
+            router
+        });
+    </script>
+```
+

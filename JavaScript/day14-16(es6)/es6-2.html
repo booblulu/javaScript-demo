@@ -54,9 +54,80 @@
 		var arr2 = { ...arr,3:5,4:2,5:7};
 		console.log(arr2);
 
+		// 5. 数组
 
+		// 5.1 filter
+		var arr3 = [32,52,74,68];
+		var result = arr3.filter(item=>item>=60);
+		console.log(result); //74 68
+
+		// 5.2 forEach
+		var arr4 = [32,52,74,68];
+		arr4.forEach(item=>console.log(item*2));
+		// 64
+		// 104
+		// 148
+		// 136
+
+		// 5.3 reduce
+
+		// 5.3.1 sum
+		var arr5 = [6,3,6,7,3];
+		var sum = arr5.reduce((tem, item, index)=>tem+item);
+		console.log(sum); // 25
+
+		// 5.3.2 平均值
+		var arr5 = [6,3,6,7,3];
+		var avg = arr5.reduce((tem, item, index)=>{
+			if (index !== arr5.length-1) {
+				return tem+item;
+			}
+			return (tem+item)/arr5.length;
+		});
+		console.log(avg); // 25		
+
+		// 5.4 map
+		var arr6 = [34,56,78,23,556,90];
+		var resultArr = arr6.map(item=>item>=60?"及格":"不及格");
+		console.log(resultArr); // ["不及格", "不及格", "及格", "不及格", "及格", "及格"]
 		
 
+		// 8. JSON
+
+		// 8.1 JSON对象
+		// 标准写法
+		// 1. 只能用双引号
+		// 2. 所有的名字(key)都必须用引号包起来		
+		let json = { a: 13, b: 3};
+
+		// JSON.stringify() 字符串化
+		// encodeURIComponent() 将字符串转换成URL编码
+		let str = `http://www.baidu.com?${encodeURIComponent(JSON.stringify(json))}`;
+		alert(str);
+
+		// JSON.parse() 转换成JSON
+		let strJson = '{ "a": 13, "b": 3}';
+		alert(JSON.parse(strJson));
+		
+		// 8.2 简写
+		// 名字和值一样 
+		let a = 2,
+			b = 4;
+		let j1 = {a: a, b: b};
+		console.log(j1);  // {a: 2, b: 4}
+		let j2 = {a, b, c:12};
+		console.log(j2);  // {a: 2, b: 4, c: 12}
+		
+		// 包含函数的时候
+		let j3 = {
+			a: 12,
+			// show:function(){
+			show(){
+				alert(this.a);
+			}
+		}
+		console.log(j3.a);
+		j3.show();
 
 	</script>
 </body>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <router-link to="/">首页</router-link>
+        <router-link to="/news">新闻</router-link>
+        <!-- 多视图，需要name命名(命名视图) -->
+        <router-view name="header"></router-view>
+        <router-view></router-view>
+        <router-view name="footer"></router-view>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+        // router
+        const indexCmp = {
+            // 必须要有父标签
+            template: "<div>主页</div>"
+        }
+        const newsCmp = {
+            template: "<div>新闻</div>"
+        }
+        const footerCmp = {
+            template: "<div>主页底部</div>"
+        }
+        const headerCmp = {
+            template: "<div>主页头部</div>"
+        }
+        const footerNewsCmp = {
+            template: "<div>新闻底部</div>"
+        }
+        const headerNewsCmp = {
+            template: "<div>新闻头部</div>"
+        }
+
+        let router = new VueRouter({
+            routes: [
+                {
+                    path: "/",
+                    name: "index",
+                    components:{
+                        default: indexCmp,
+                        header: headerCmp,
+                        footer: footerCmp
+                    }
+                },
+                {
+                    path: "/news",
+                    name: "news",
+                    components:{
+                        default: newsCmp,
+                        header: headerNewsCmp,
+                        footer: footerNewsCmp
+                    }
+                }
+            ]
+        })
+
+        // vue
+        let vm = new Vue({
+            el: "div",
+            router
+        });
+    </script>
+</body>
+</html>

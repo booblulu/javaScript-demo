@@ -4,7 +4,9 @@
 	<title>Es6</title>
 	<script type="text/javascript">
 
-		// 1.模板字符串
+		// 1.字符串
+
+		// 1.1 模板字符串
 		var s1 =  ' hello ';
 		var s2 =  ` hello `;
 
@@ -32,6 +34,38 @@
 					<p>${s1}</p> 
 				  </div>`
 		console.log(s6);
+
+		// 1.2 startsWith
+		let str = "ddd";
+		console.log(str.startsWith("d")); // true
+
+		// 用途
+		let http = "git://www.baidu.com";
+		if (http.startsWith("http://")) {
+			  console.log("普通网址");
+		} else if (http.startsWith("https://")) {
+			  console.log("加密网址");
+		} else if (http.startsWith("git://")) {
+			  console.log("git地址");
+		} else if (http.startsWith("svn://")) {
+			  console.log("svn地址");
+		} else {
+			  console.log("其他");
+		}
+
+		// 1.3 endsWith
+		let endStr = "1.txt";
+		if (endStr.endsWith(".txt")) {
+			  console.log("文本文件");
+		} else if (http.startsWith(".jpg")) {
+			  console.log("图片文件");
+		} else if (http.startsWith(".mp4")) {
+			  console.log("音频文件");
+		} else {
+			  console.log("其他");
+		}		
+
+
 
 
 
@@ -90,7 +124,7 @@
 		num(1,2,4);
 
 		// 箭头函数内部不能使用arguments
-		// 为弥补这个问题，rest函数因此诞生
+		// 为弥补这个问题，rest参数因此诞生
 
 		//...args -> 产生一个数组变量，包含函数调用传递的所以实参
 		function q(...args) {

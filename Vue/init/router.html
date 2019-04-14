@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>router</title>
+    <style>
+        .link {
+            overflow: hidden;
+        }
+        .links .nav {
+            float: left;
+            color: #888;
+            margin-right: 10px;
+        }
+        .links .router-link-active {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <div>
+            <button @click="fn1">页面1</button>
+            <button @click="fn2">页面2</button>
+            <button @click="fn3">页面3</button>
+        </div>
+        xxx <br>
+        <div class="links">
+            <router-link class="nav" :to="{name:'a',params:{id:44}}">页面1</router-link>
+            <router-link class="nav" to="/b/58">页面2</router-link>
+            <router-link class="nav" to="/c">页面3</router-link>
+        </div>
+        <br>
+        <!-- vue组件:路由容器 -->
+        <router-view></router-view>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script>
+        // 路由表
+        let router = new VueRouter({
+            routes: [
+                // 路由节点
+                {
+                    path: "/a/:id",
+                    name: "a",
+                    component: {
+                        template: "<div>id:{{$route.params.id}}</div>"                   
+                    },
+                    // 新，旧，下一步
+                    beforeRouteUpdate(to,from,next){
+                        if(confirm("如果离开本页，数据会丢失，继续么？")){
+                            next();
+                        }
+                    }
+                },
+                {
+                    path: "/b/:id",
+                    name: "b",
+                    component: {
+                        // $route 当前路由内的信息
+                        template: "<div>id:{{$route.params.id}}</div>"
+                    }
+                },
+                {
+                    path: "/c",
+                    name: "c",
+                    component: {
+                        template: "<div>ccc</div>"
+                    }
+                }
+            ]
+        });
+
+        let vm = new Vue({
+            el: "div",
+            data: {},
+            methods: {
+                fn1(){
+                    this.$router.push({
+                        name:"a",
+                        params: {
+                            id: 22
+                        }
+                    });
+                },
+                fn2(){
+                    this.$router.push('/b/39');
+                },
+                fn3(){
+                    this.$router.push('/c');
+                }
+            },
+            watch: {
+                $route(to,from){
+                    console.log(to,from);
+                }
+            },
+            // 名字一样可以省略
+            // router: {
+
+            // }
+            router
+        })
+    </script>
+</body>
+</html>

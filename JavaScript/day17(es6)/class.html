@@ -5,6 +5,47 @@
 </head>
 <body>
 	<script type="text/javascript">
+	
+		// 面向对象
+
+		// 老写法
+		// 类和构造函数是一个东西
+		function User(name,pass) { 
+			this.name = name;
+			this.pass = pass;
+		}
+		
+		User.prototype.showName = function (){
+			console.log(this.name);
+		}
+
+		User.prototype.showPass = function (){
+			console.log(this.pass);
+		}
+
+		var u1 = new User("lulu","123456");
+
+		u1.showName();
+		u1.showPass();
+		// 继承
+		function VipUser(name, pass, level) { 
+			User.call(this, name, pass);
+
+			this.level = level;
+		}
+
+		VipUser.prototype = new User();
+		VipUser.prototype.constructor = VipUser;
+
+		VipUser.prototype.showLevel = function (){
+			console.log(this.level);
+		}
+
+		var v1 = new VipUser("blue","123456",3);
+
+		v1.showName();
+		v1.showPass();
+		v1.showLevel();
 
 		// 7.class
 
@@ -17,7 +58,7 @@
 			}
 		}
 		var p1 = new Person("lulu",22);
-		console.log(p1);
+		console.log(p1); // {age: 22,name: "lulu"}
 
 		// 和构造函数的方式基本一直
 		function Student(name,age) {
