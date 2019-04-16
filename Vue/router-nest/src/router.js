@@ -10,7 +10,7 @@ export default new VueRouter({
             name: "index",
             components: {
                 header: Header,
-                default: Home   
+                default: Home
             }
         },
         {
@@ -18,10 +18,9 @@ export default new VueRouter({
             name: "news",
             components: {
                 header: Header,
-                default: News            
+                default: News
             },
-            // 子路由
-            children: new_router
+            children:new_router
         }
     ]
 })

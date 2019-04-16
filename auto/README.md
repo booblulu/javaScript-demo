@@ -143,10 +143,11 @@
 * 热更新 dev-server
     - 需要在本地安装 `npm i webpack-dev-server -D`
     - 需要webpack(一般在连接的时候已经依赖上了),webpack-cli(启动器)的依赖 `npm i webpack-cli -S`
+    - --open直接打开浏览器
     ```javascript
         "scripts": {
             "test": "echo \"Error: no test specified\" && exit 1",
-            "start": "webpack-dev-server" // 在package.json中配置
+            "start": "webpack-dev-server --open" // 在package.json中配置
         }
     ```
     - 执行webpack-dev-server `npm run start`
@@ -159,9 +160,108 @@
 devDependencies(-D) 是开发环境下依赖的模块，生产环境不会被打入包内 
 dependencies(-S) 是生产环境和开发环境都能用
 
+#### 动态webpack
+* 格式
+```javascript
+    // 动态写法
+    // env 环境参数
+    // argv 所有选项
+    module.exports = function(env, argv){
+        env = env || {};
+        return {
+            entry: "./src/vm.js",
+            module:{
+                rules:[
+                    {
+                        test:/\.css$/,
+                        use:["style-loader","css-loader"]
+                    },
+                    {
+                        test: /\.(eot|svg|ttf|woff|woff2)$/i,
+                        use: ["file-loader"]
+                    }
+                ]
+            },
+            // 判断是哪个生产模式，将其json引入在此
+            ...env.development?require("./config/webpack.development"):require("./config/webpack.production")
+        };
+    }
+```
+* package.json文件增加bulid，可以在命令行敲，但是麻烦，直接配置，少敲几个字母
+```json
+  "scripts": {
+    //  ...  
+    "start": "webpack-dev-server --env.development --open",
+    "build": "webpack --env.production"
+  },
+```
+* 新建两个js文件，根据模式不同使用不同的config
+    - webpack.development.js 生产模式
+    ```javascript
+        module.exports = {
+            mode: "development",
+            output: {
+                filename: "bundle.js"
+            },
+            devtool: "source map"
+            
+        }
+    ```
+    - webpack.production.js 打包
+    ```javascript
+        const path = require("path");
+        module.exports = {
+            mode: "production",
+            output: {
+                path: path.resolve(__dirname,"../build"),
+                filename: "bundle.min.js"
+            }
+        }
+    ```
 
+#### html-webpack-plugin
+* 解决html路径的问题，原来需要在body内加个script标签，并且根据不同的情况更换路径很麻烦。
+```html
+    <script src="/bundle.min.js"></script>
+```
+* 使用html-webpack-plugin
+```javascript
+    const HtmlWebpackPlugin = require("html-webpack-plugin");
+    module.exports = {
+        mode: "development",
+        output: {
+            filename: "bundle.js"
+        },
+        devtool: "source map",
+        // 会自动生成index.html文件
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: "index.html"
+            })
+        ]
+    }
+```
 
-
-
-
-
+### 取别名
+* 由于vue引入需要写很长的路径 `import Vue from "vue/dist/vue.esm"`
+```javascript
+    module:{
+        rules:[
+            {
+                test:/\.css$/,
+                use:["style-loader","css-loader"]
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)$/i,
+                use: ["file-loader"]
+            }
+        ]
+    },
+    // 可以在webpack内配置
+    resolve: {
+        // 取别名，下次直接写vue就行
+        alias: {
+            "vue": "vue/dist/vue.esm"
+        }
+    }
+```
