@@ -1379,6 +1379,7 @@ export default {
 * created() 数据，自身的属性方法之类的，可以使用。
 * mounted() dom结构搭建完善，可以使用子节点。
 
+
 ### 测试
 
 #### 单元测试
@@ -1397,7 +1398,7 @@ export default {
 ### vue-cli脚手架(启动器)
 * 全局安装 `npm i -g vue-cli`
 
-### 命令 vue
+#### 命令 vue
 * 查看可用的模板 `vue list` ，可以在github中搜索vue-template查看更多，一般使用webpack
 * 下载模板 `vue init webpack(模板名) test(命名)`，然后会问如下问题，可以回车使用默认
     * 项目名
@@ -1423,3 +1424,88 @@ export default {
 * 模板
     * build 配置文件
         * webpack
+
+
+### vue Devtools 调试工具
+1. github下载
+```
+    git clone https://github.com/vuejs/vue-devtools
+```
+2. vue-devtools目录下安装依赖包
+```
+    npm i 
+```
+3. 修改vue-devtools > shells > chrome > manifest.json文件，把"persistent":false改成true
+```json
+  "devtools_page": "devtools-background.html",
+  "background": {
+    "scripts": [
+      "build/background.js"
+    ],
+    "persistent": false // true
+  },
+```
+4. 编译代码
+```
+    npm run build
+```
+5. 扩展Chrome插件，Chrome浏览器 >  更多工具 > 扩展程序 ，勾选开发者模式，选择 vue-devtools > shells > chrome 放入
+6. 重启浏览器，F12看到Vue即为成功
+
+
+### vuex
+
+#### 好处
+1. 全局，存一个，所有地方都能用。
+2. 统一，改一个全局变。
+3. 单一，只要存储一份就行。
+
+#### 解决问题
+1. 数据跨组件共享，不用找父级子级，都可以使用
+2. 防止数据被意外修改，父级子级太乱，vuex可以记录是谁改的，什么时候改的
+
+#### 使用
+* 下载 `npm i vuex -S`
+* 配置
+```javascript
+    // vuex
+    import Vuex from 'vuex'
+
+    // use vuex
+    Vue.use(Vuex)
+
+    // vuex 声明store对象
+    const store = new Vuex.Store({
+    strict: process.env.NODE_ENV !== 'production', // 严格模式，防止直接修改state，发布上线要改成false
+    state: { // 数据
+        a: 23,
+        b: 33
+    },
+    mutations: { // 修改操作的封装
+        add (state, n) {
+            state.a += n
+        }
+    },
+    actions: { // 调用mutaions
+        add (context, n) {
+        context.commit('add', n)
+        }
+    },
+    getters: {}, // 读取数据，函数
+    modules: {} // 模块，把state拆成模块
+
+    })
+
+    // cmp.vue
+    export default {
+        name: 'cmp',
+        methods: {
+            fn(){
+                // commit 找 store中的 mutations
+                this.$store.commit('add', 5)
+                // dispacth 找 store中的 actions
+                this.$store.dispatch('add',7);
+            }
+        }
+    }
+```

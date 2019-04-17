@@ -24,7 +24,7 @@ module.exports = {
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
     // 是否开启ESlint
-    useEslint: true,
+    useEslint: false,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: false,
@@ -51,7 +51,8 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    // 打包需要修改我变成相对路径，加个.
+    assetsPublicPath: './',
 
     /**
      * Source Maps
