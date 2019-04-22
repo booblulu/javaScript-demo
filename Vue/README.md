@@ -1484,14 +1484,28 @@ export default {
     mutations: { // 修改操作的封装
         add (state, n) {
             state.a += n
+        },
+        set (state, {a, b}) {
+            state.a = a
+            state.b = b
         }
     },
-    actions: { // 调用mutaions
+    actions: { // 封装mutations，调用mutations
         add (context, n) {
-        context.commit('add', n)
+            context.commit('add', n)
+        },
+        // 只能传两个参数，一个固定，如果相传两个参数，就传json把
+        set ({commit}, json) {
+            commit('set', json)
         }
     },
-    getters: {}, // 读取数据，函数
+    // 在组件内调用  count:{{$store.getters.count}}
+    // 或者使用computed中的count
+    getters: { // 读取数据，函数
+        count (state) {
+            return state.a + state.b
+        }
+    },
     modules: {} // 模块，把state拆成模块
 
     })
@@ -1506,6 +1520,31 @@ export default {
                 // dispacth 找 store中的 actions
                 this.$store.dispatch('add',7);
             }
+        },
+        computed: {
+            count:{
+                get(){
+                    return this.$store.getters.count;
+                },
+                set(value){
+                    this.$store.dispatch('set', {a:value-33, b:33})
+                }            
+            }
         }
     }
+```
+
+#### 辅助方法
+* mapState     state > computed
+    * 在组件内引包，然后在computed内引入
+* mapActions   action > methods
+* mapGetters   getters > computed
+```javascript
+    import {mapState, mapActions, mapGetters} from "vuex"
+    // 方法名
+    ...mapActions(['set','setOnline'])
+    // 属性名
+    ...mapState(['a','b'])
+    // 方法名，当属性用
+    ...mapGetters(['onlineUsers'])
 ```

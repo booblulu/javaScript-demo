@@ -1,13 +1,21 @@
 <template>
   <div>
-    a:{{$store.state.a}}<Cmp/>
+    <!-- count:{{count}}<button @click="count+=5">+5</button><br> -->
+    a: {{a}} | b: {{b}}<Cmp/><button @click="set([a+1,b+1])">+1</button>
     <TableSelf :fields="fields" :datas="datas" :parent="this"/>
+    <button @click="setOnline(1)">lulu上线</button>
+    <ul>
+      <li v-for="user in onlineUsers">
+        姓名：{{user.name}} | 年龄：{{user.age}} 
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import Cmp from '@/components/common/Cmp';
 import TableSelf from '@/components/common/TableSelf';
+import {mapState, mapActions, mapGetters} from "vuex"
 
 export default {
   name: 'index',
@@ -32,7 +40,26 @@ export default {
   methods: {
     del(id){
       this.datas = this.datas.filter(data => data.ID!=id);
-    }
+    },
+    ...mapActions(['set','setOnline','readUsers'])
+  },
+  created(){
+    this.readUsers();
+  },
+  computed: {
+    // count:{
+    //   get(){
+    //     return this.$store.getters.count;
+    //   },
+    //   set(value){
+    //     console.log(value);
+    //     this.$store.dispatch('set', {a:value-33, b:33})
+    //   }
+    // }
+    // 展开函数，相当于增加了a和b的get函数
+    ...mapState(['a','b']),
+    ...mapGetters(['onlineUsers'])
+    
   }
 }
 </script>

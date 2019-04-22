@@ -152,3 +152,241 @@
 * 2:不常用:查找node_modules下的包名.js
 * 3:查找node_modules下的包名文件夹中的index.js(常用)
 * __逐级向上,node_modules,要么main属性,要么index.js__
+
+
+### koa
+
+#### 基本使用
+* 下载(项目文件夹不能是koa) `npm i koa -D`
+* 创建server.js文件，执行 ` node server(.js)`
+```javascript
+    // 引入koa
+    const koa = require('koa');
+
+    // 创建服务器
+    let server = new koa();
+
+    // 设置端口
+    server.listen('8081');
+```
+* 需要router `npm i koa-router -D`
+```javascript
+    // 引入koa-router
+    const Router = require("koa-router");
+
+    // 创建路由对象
+    let router = new Router();
+    // async (ctx, next) ，next是下一步，可以省略
+    router.get("/a", async ctx => {
+        // 多次写入和字符串一样 
+        ctx.body = `aaa`;
+        // ctx.body += `aaa`;
+    })
+    // 挂到服务器上
+    server.use(router.routes());
+```
+
+#### 嵌套路由
+* 在server.js中写
+```javascript
+    // 总路由
+    let router = new Router();
+        // 用户路由
+        let userRouter = new Router();
+            let admin = new Router();
+                admin.get('/index', ctx=>{
+                    ctx.body = '管理员主页';
+                })
+            let company = new Router();
+                company.get('/index', ctx=>{
+                    ctx.body = '企业主页';
+                })
+            userRouter.use('/admin',admin.routes());
+            userRouter.use('/company',company.routes());
+        // 新闻路由
+        let newsRouter = new Router();
+            let woman = new Router();
+                woman.get('/index', ctx=>{
+                    ctx.body = '女性频道';
+                })
+            let games = new Router(); 
+                games.get('/index', ctx=>{
+                    ctx.body = '游戏新闻';
+                })
+            // 将子路由挂到newsRouter上，千万不能忘记routes()
+            newsRouter.use('/games', games.routes());
+            newsRouter.use('/woman', woman.routes());
+    router.use('/user', userRouter.routes());
+    router.use('/news', newsRouter.routes());
+
+    server.use(router.routes());
+```
+* 拆成routers文件夹，每一级路由分开写
+```javascript
+    // 文件夹内是index时可以省略
+    server.use(require('./routers'));
+```
+
+#### 路由参数
+* ctx.params 参数时固定的，缺一个都不行，SEO好，后可以继续接路径
+```javascript
+    let router = new Router();
+    router.get('/news/:id/:id1', ctx=>{
+        let {id, id1} = ctx.params;
+        ctx.body = `access ${id} ${id1}`; // access 333 www
+    })
+
+    server.use(router.routes());
+```
+* ctx.params 路由重复的时候
+```javascript
+    // 路由参数
+    let router = new Router();
+    // 路由一样的话，会按顺序执行，不用next()只执行一次，以第一个碰到的为准
+    router.get('/news/:id', async (ctx, next)=>{
+        let {id} = ctx.params;
+        ctx.body = `access ${id} `; 
+        // 会跳转到下一个符合条件的路由，由于是async函数，需要加await
+        await next();
+    })
+
+    router.get('/news/1', async ctx=>{
+        ctx.body += `1`; // access 1 1
+    })
+
+    server.use(router.routes());
+```
+* ctx.query(urlencoded) 更灵活，更方便，参数可以任意传，也不用在意顺序，seo没有ctx.params好
+```javascript
+    // 路由参数 ctx.query
+    let router = new Router();
+
+    // http://localhost:8081/news/?a=hello&b=lulu
+    router.get('/news', async ctx=>{
+        let {a,b} = ctx.query;
+        ctx.body = `${a} ${b}`; // hello lulu
+    })
+
+    server.use(router.routes());
+```
+
+#### ctx
+* ctx.method   请求方式
+* ctx.url      请求的url(/news/?a=hello)
+* ctx.path     不包括参数的路径(/news/)
+* ctx.ip       客户端ip
+* ctx.headers  请求头
+* ctx.request
+* ctx.response
+* ctx.throw(code, msg) 抛错
+```javascript
+    let router = new Router();
+
+    // http://localhost:8081/news/?a=hello
+    router.get('/news', async ctx=>{
+        if (ctx.query.a || ctx.query.b) {
+            ctx.throw(400,'a or b is required'); // a or b is required
+        }
+        // 后面没执行
+        let {a,b} = ctx.query;
+        ctx.body = `${a} ${b} ${ctx.a}`;
+        
+    })
+
+    server.use(router.routes());
+```
+* ctx.assert(条件, code, msg)  断言测试
+```javascript
+    let router = new Router();
+
+    // http://localhost:8081/news/?a=hello
+    router.get('/news', async ctx=>{
+        ctx.assert(ctx.query.a && ctx.query.b, 400, 'a or b is required'); // a or b is required
+        // 后面没执行
+        let {a,b} = ctx.query;
+        ctx.body = `${a} ${b} ${ctx.a}`; 
+        
+    })
+
+    server.use(router.routes());
+```
+* ctx.state = 200  状态码
+```javascript
+    router.get('/login', async ctx=>{
+        ctx.state = 404;  // 文件会报404
+    })
+```
+* ctx.redirect()   跳转页面
+```javascript
+    router.get('/login', async ctx=>{
+        ctx.redirect("/news");   // 自动跳转到news,login会报302(临时重定向)
+    })
+```
+* ctx.attachment() 下载文件，静态生成
+
+#### server.context  ctx的原型
+* ctx的原型
+* 适合放置全局变量
+```javascript
+    // 外部设置
+    server.context.a = 11;
+
+    // 路由参数 ctx.query
+    let router = new Router();
+
+    // http://localhost:8081/news/?a=hello&b=lulu
+    router.get('/news', async ctx=>{
+        let {a,b} = ctx.query;
+        ctx.body = `${a} ${b} ${ctx.a}`; // hello lulu 11
+    })
+
+    server.use(router.routes());
+```
+
+#### koa-static
+* 下载 ` npm i koa-static -D `
+* 基本使用
+```javascript
+    // 引入koa-static
+    const static = require('koa-static');
+    // 挂在服务器上
+    server.use(static('./static'));
+```
+* 带参数
+```javascript
+    // 引入koa-static
+    const static = require('koa-static');
+    // 挂在服务器上
+    server.use(static('./static',{
+        maxage: 84600*1000,    // 缓存时间，毫秒为单位，到浏览器上会变成秒
+        index: '1.html'        // 默认路径
+    }));
+```
+* 可以分别设置不同的文件格式，缓存不同的时间
+```javascript
+    // 引入koa-static
+    const static = require('koa-static');
+
+    // 创建路由
+    let staticRouter = new Router();
+
+    staticRouter.all(/\.(html|htm)$/i,static('./static',{
+        maxage: 7200*1000// html两个小时一刷新
+    }));
+    staticRouter.all(/\.(jpq|png|gif)$/i,static('./static',{
+        maxage: 60*86400*1000   // 图片两个月一刷新
+    }));
+    staticRouter.all(/\.css$/i,static('./static',{
+        maxage: 1*86400*1000   // css一天一刷新
+    }));
+    staticRouter.all('',static('./static',{
+        maxage: 30*86400*1000   // 其他文件一个月一刷新
+    }));
+
+    // 挂在服务器上
+    server.use(staticRouter.routes());
+```
+
+####  koa-better-body
+* 下载 ` npm i koa-better-body -D `
+* 
