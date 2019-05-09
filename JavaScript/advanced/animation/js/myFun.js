@@ -120,16 +120,24 @@ function $(id) {
 
  /**
   * 匀速动画函数
-  * @param {object} ele 
-  * @param {number} target 
-  * @param {number} speed  
+  * @param {object} ele 元素
+  * @param {number} target 目标位置
+  * @param {number} speed 步长 
   */
  function constant(ele, target, speed) {
 	//  清除定时器
 	clearInterval(ele.timer);
 
+	// 判断方向，当前位置大于目标位置就是向左，否则向右
+	var dir = ele.offsetLeft > target ? -speed : speed;
+
 	// 设置定时器
 	ele.timer = setInterval(()=>{
-
-	},200);
+		ele.style.left = ele.offsetLeft + dir +"px";
+		// 由于步长不定，会导致结果位置多余目标位置，所有要修正
+		if (Math.abs(target-ele.offsetLeft) < Math.abs(dir) ){
+			clearInterval(ele.timer);
+			ele.style.left = target +"px";
+		}
+	},20);
  }
