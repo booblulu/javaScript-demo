@@ -6,7 +6,7 @@
 * HTTP
 * Node
 * Vue
-* Echarts
+* PHP
 * 自动化工具
     * gulp
     * webpack
