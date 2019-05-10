@@ -207,23 +207,32 @@ request
     HTTP/1.1  协议版本
 */
 GET /basics/php/fileupload/fileupload.html HTTP/1.1
+
 // 主机地址
 Host	localhost:8008
+
 // 缓存机制
 Cache-Control	max-age=0
+
 // 客户端向服务器表示支持升级机制，http->https
 Upgrade-Insecure-Requests	1
+
 // 告诉浏览器的版本，以及操作系统的版本
 User-Agent	Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36
+
 // 告诉服务器，客户端接收的数据格式
 Accept	text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+
 // 请求来自于哪个页面，告诉服务器我是从哪个页面链接过来的，比如外部的网址调用
 Referer	http://localhost:8008/basics/php/fileupload/
+
 // 接收的服务器的压缩类型
 Accept-Encoding	gzip, deflate, br
+
 // 接收的语言
 Accept-Language	zh-CN,zh;q=0.9
 Cookie	PHPSESSID=jiu07r7vpk3af02lkg4cipjn8c
+
 // 决定当前的事务完成后，是否会关闭网络连接。值是“keep-alive”，网络连接就是持久的，不会关闭，使得对同一个服务器的请求可以继续在该连接上完成。
 Connection	keep-alive
 ```
@@ -234,12 +243,15 @@ request
 
 POST /basics/php/fileupload/fileupload.php HTTP/1.1
 Host	localhost:8008
+
 // 发送给接收方的消息主体的大小，即用十进制数字表示的八位元组的数目
 Content-Length	8333
 Cache-Control	max-age=0
+
 // 请求来自于哪个站点
 Origin	http://localhost:8008
 Upgrade-Insecure-Requests	1
+
 // post提交，有一个默认的请求头 Content-Type:application/x-www-form-urlencoded
 Content-Type	multipart/form-data; boundary=----WebKitFormBoundarywjOy0XOgmW0UEHnK
 User-Agent	Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36
@@ -255,18 +267,25 @@ response
 
 // 协议版本 状态码 成功
 HTTP/1.1 200 OK
+
 // 服务器的时间
 Date	Thu, 09 May 2019 13:17:46 GMT
+
 // 使用的服务器版本，语言版本
 Server	Apache/2.4.38 (Win64) PHP/7.2.16
+
 // 告知网站是用何种语言或框架编写的
 X-Powered-By	PHP/7.2.16
+
 // 告诉客户端浏览器，响应体的长度
 Content-Length	12
+
 // 在一次TCP连接中可以持续发送多份数据而不会断开连接,长时间的tcp连接容易导致系统资源无效占用,会等待timeout秒关闭连接
 Keep-Alive	timeout=5, max=100
+
 // 响应的数据格式
 Content-Type	text/html;charset=utf-8
+
 // 来协商浏览器和代理之间的链接
 Proxy-Connection	keep-alive
 

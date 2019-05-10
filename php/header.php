@@ -1,10 +1,16 @@
 <?php
 
+    header("Content-Type:text/html;charset=utf-8");
+
+    header("Refresh:10;url=http://www.baidu.com");
+
+    echo "10秒之后跳转到百度，如果没有跳转，请点击<a href='http://www.baidu.com'>百度</a><br>";
+
     // 获取请求头 getallheaders()
     $arr = getallheaders();
     $User_Agent = $arr["User-Agent"];
-    var_dump($User_Agent);
 
+    // 当客户端访问服务器，服务器会获取到客户端浏览器的版本，然后返回到客户端浏览器，告知当前浏览器的版本
     // strstr(字符串，目标字符串) 监测是否存在目标字符串
     if (strstr($User_Agent, "OPR")){
         echo "当前使用的是Opera";
