@@ -541,6 +541,7 @@ es6之后增加了块级作用域。
 #### keys/values/entries(当前仅支持数组)
 
 |          |    数组    |    json   |
+|-----|-----|-----|
 | for...in |  下标(key) |    key    |
 | for...of |  值(value) |     x     |
 
