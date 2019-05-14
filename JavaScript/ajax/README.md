@@ -39,11 +39,15 @@
     }
 ```
 2. readyState
-> 0：初始化，XMLHttpRequest对象还没有完成初始化 <br>
-1：载入，XMLHttpRequest对象开始发送请求<br>
-2：载入完成，XMLHttpRequest对象的请求发送完成<br>
-3：解析，XMLHttpRequest对象开始读取服务器的响应<br>
-4：完成，XMLHttpRequest对象读取服务器响应结束<br>
+
+|  | 短语 | 含义 |
+|-------|-------|---------------------|
+| 0 | 初始化 | XMLHttpRequest对象还没有完成初始化 |
+| 1 | 载入 | XMLHttpRequest对象开始发送请求 |
+| 2 | 载入完成 | XMLHttpRequest对象的请求发送完成 |
+| 3 | 解析 | XMLHttpRequest对象开始读取服务器的响应 |
+| 4 | 完成 | XMLHttpRequest对象读取服务器响应结束 |
+
 3. status
 
 |  | 类别 | 含义 |
