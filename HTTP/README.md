@@ -354,7 +354,7 @@ Proxy-Connection	keep-alive
 
 #### 原理
 1. 会话开始是由服务器创建session，当第一次请求的时候，会先执行session_start()，这个方法会通过cookie传递的sessionID，在session池中查找，如果没有传递服务器会创建一个session，然后以关联数组的形式存放sessionID作为key，session作为值进行存储，然后给客户端一个响应头，这个响应头是一个set_cookie，这个set_cookie就是sessionID。
-2. 第二次请求，从客户端传递的cookie里面获取到sessionID，然后根据sessionID到session池中获取数据，再将数据存入到$_SESSION中。
+2. 第二次请求，从客户端传递的cookie里面获取到sessionID，然后根据sessionID到session池中获取数据，再将数据存入到$_SESSION(php)中。
 
 #### 生命周期
 1. 服务器是通过session的id来判断客户端的，也就是session文件名，session文件名是随机生成且唯一的，当未设置有效期时，session会存储在内存中，在浏览器关闭后会被销毁，当重新请求该页面时，会重新注册session。 
