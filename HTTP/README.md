@@ -318,3 +318,59 @@ Proxy-Connection	keep-alive
 * 400 没有权限访问
 * 404 请求的资源没有找到
 * 500 服务器内部错误
+
+
+### cookie，http规定的规范
+
+#### 定义
+> cookie就是服务器端给客户端的一张小纸条，当客户端访问服务器的时候，服务器就可以发送cookie，在cookie里保存数据，而客户端接收到服务器的响应后，会将cookie保存起来，当客户端再次调用服务器的时候，会将保存的cookie发送到服务器。
+
+#### 原理
+> 客户端发送一个请求到服务器，服务器对客户端发送cookie，这个cookie会保存在Set-Cookie响应头中，响应头的值是设置的数据，客户端拿到cookie后会根据http的标准进行解析并保存。当客户端再次请求服务器时，会将cookie保存在Cookie请求头中，以name=value的形式发送到服务器。
+
+#### 生命周期
+1. 内存cookie，关闭浏览器，cookie就会消失。不设置有效时间。
+2. 硬盘cookie，保存在硬盘上，关机也在，只能使用清除记录之类的软件，设置有效时间。
+3. 追杀cookie，把之前写到客户端的cookie清除掉。设置一个有效时间之前的时间，清除cookie。
+
+#### 应用场景
+1. http是基于请求和响应的，当连接断开的时候，http协议是无状态的，服务器不会记住客户端的状态，cookie就是用来记住状态的，用来多个请求之间的数据共享。
+
+#### 注意点
+1. cookie是保存在客户端的，当用户禁用的时候，就没用了。
+2. 由于cookie保存在客户端，可能会被伪造修改，可以通过加密(md5)，在服务器端解密来预防欺骗，而且数据必须和数据库进行对应，以防串改。
+3. 由于各个浏览器cookie存储标准不一，所有尽量保证cookie在20条内，大小在4k。
+
+#### cookie与Web Storage的区别
+1. cookie是在客户端和服务器端进行传递的，而localStorage和sessionStorage是在本地存储的，不会主动发送到服务器
+2. 存储大小，cookie只能存储4k大小，并且不能超过20个，而localStorage和sessionStorage支持5M大小，甚至更大。
+3. 生命周期，cookie只在有效时间内存活，sessionStorage在关闭浏览器窗口前存活，localStorage永久有效。
+4. 作用域，cookie在同源路径下有效，localStorage在所有同源窗口中有效，sessionStorage仅在同源窗口有效，关闭窗口就失效了。
+
+### session
+
+#### 诞生
+> 一个网站的会话是由多个http请求组成的，http请求是无状态的，基于请求响应的，每个请求都是独立的，一次会话需要建立数据共享，所以需要使用session。
+
+#### 原理
+1. 会话开始是由服务器创建session，当第一次请求的时候，会先执行session_start()，这个方法会通过cookie传递的sessionID，在session池中查找，如果没有传递服务器会创建一个session，然后以关联数组的形式存放sessionID作为key，session作为值进行存储，然后给客户端一个响应头，这个响应头是一个set_cookie，这个set_cookie就是sessionID。
+2. 第二次请求，从客户端传递的cookie里面获取到sessionID，然后根据sessionID到session池中获取数据，再将数据存入到$_SESSION中。
+
+#### 生命周期
+1. 服务器是通过session的id来判断客户端的，也就是session文件名，session文件名是随机生成且唯一的，当未设置有效期时，session会存储在内存中，在浏览器关闭后会被销毁，当重新请求该页面时，会重新注册session。 
+2. session的存储模式是心跳机制，当在有效期内访问服务器，访问session时，会重置有效期，重新开始计时。
+
+#### cookie与session的区别
+1. 存储位置，cookie是存储在客户端，session是存储在服务器端的
+2. 存储大小，cookie存储大小有限制(4k)，不能超过20个cookie，而session没有。
+3. 存储格式，cookie存储的是字符串，session存储的是对象。
+4. 作用域，cookie只作用在设置的路径内，session作用在整个网站
+5. 对服务器造成的压力，cookie的数据保存在客户端，不占用服务器资源，session保管在服务器，每一个用户生成一个sessionID，并发量高时会消耗大量内存。
+6. 安全性，cookie每次请求都会附带，增加不必要的流量，并且服务器还要效验以防诈骗，session只要验证一次即可。
+7. 有效期，cookie可以设置一个很长的时间，session基于在cookie之上的，默认有效期是-1，关闭即失效，也可以设置有效时间。
+
+#### 应用场景
+1. 记住上次播放时间，阅读记录等等。。
+2. 登录
+3. 购物车
+

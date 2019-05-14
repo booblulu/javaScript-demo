@@ -130,3 +130,60 @@
 9. 注释
 * 单行 # or //
 * 多行 /**/
+10. cookie
+```php
+    // 发送cookie，以键值对的形式，输出到客户端
+    // setcookie( string name,[string value],[int expire],[string path],[string domain]);
+    // expire 过期时间
+    // path 服务器端有效路径，默认为当前设置cookie时的页面路径，'/'表示整个域名有效，'/A'表示A分类目录下的页面有效。只有设置的路径包含的页面才可以拿到cookie值
+    // domain 该cookie有效的域名，指定域名才可以拿到
+    ssetcookie("username","lulu",time()+3600*12);
+
+    // 接收cookie
+    $username = "";
+    // 判断是否已经设置cookie
+    if(isset($_COOKIE["username"])){
+        $username = $_COOKIE["username"];
+    }
+
+    // 销毁cookie，可以通过设置cookie过期时间为以前的时间点来销毁，或者直接设置-1
+    setcookie("username","",time()-2000);
+     setcookie("username","",-1);
+```
+
+```js
+    // 客户端获取cookie
+    console.log(document.cookie);
+```
+11.session
+```php
+    // 0. session提供的方法，设置生命周期，必须在session_start()之前调用。
+    session_set_cookie_params(time()+3600*24);
+
+    // 但IE6下会有问题，可以使用cookie代替，cookie不好使就使用隐藏表单或者URL，php会将sessionID挂在url，使用$_GET获取。
+    $sessionName = session_name();  //  取得当前 Session 名，默认为 PHPSESSID
+    $sessionID = $_GET[$sessionName]; //  取得 Session ID   
+    session_id($sessionID); //  使用 session_id() 设置获得的 Session ID
+    session_set_cookie_params(time()+3600*24);
+    
+    // 1. 启动session，系统自动创建session文件
+    session_start();
+
+    // 2. 存储登录状态
+    $_SESSION["flag"] = true;
+
+    // 3. 销毁
+    //  这种方法是将原来注册的某个变量销毁
+    unset($_SESSION['admin']);
+
+    //  这种方法是清空session中的全部数据
+    // session_unset() || $_SESSION = array()
+    
+    //  这种方法是销毁整个session文件
+    session_destroy();
+    
+    // 4. 生命周期
+    // 服务器是通过session的id来判断客户端的，也就是session文件名，session文件名是随机生成且唯一的，当未设置有效期时，session会存储在内存中，在浏览器关闭后会被销毁，当重新请求该页面时，会重新注册session。 
+    // 可以结合cookie来设置生命周期，cookie未被禁用时，设置多长时间session存活多久
+    setcookie(session_name(),session_id(),time()+3600*24,"/");
+```

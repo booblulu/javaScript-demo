@@ -1,7 +1,6 @@
 <?php
 
     header("Connent-Type:text/html;charset=utf-8");
-    header("Refresh:5;url:'../person.html'");
 
     # 获取数据
     $username = $_POST["username"];
@@ -32,10 +31,9 @@
     }
 
     # 关闭连接
-    $res->free();
     $link->close();
 
     # 返回响应
-    echo $loginName." 注册成功，5秒后跳转到<a href='../person.html'>管理首页</a>";
+    echo $loginName." 注册成功";
 
 ?>

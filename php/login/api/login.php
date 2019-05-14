@@ -1,7 +1,10 @@
 <?php
+    
+    //给客户端一个响应头，响应json 格式的数据.
+    header('Content-Type:application/json;charset=utf-8');
 
-    header("Content-Type:text/html;charset=utf-8");
-    header("Refresh:5;url:'../person.html'");
+    // 将用户名放到cookie中
+    // setcookie("username",$_POST["username"],time()+3600*24*7,"/");
 
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -22,12 +25,31 @@
         die("sql error: " . $link->error);
     }
     
+    $link->close();
+    
     if($res->num_rows > 0){
         $row = $res->fetch_assoc();
 
-        echo $row["loginName"]." 登陆成功，五秒后跳转到<a href='../person.html'>管理首页</a>";
+        // 保存用户数据
+        $user = array(
+            "username" => $row["username"],
+            "password" => $row["password"],
+            "loginName" => $row["loginName"]
+        );
+
+        // 开启session存储用户数据
+        session_start();
+        $_SESSION["user"] = $user;
+
+        header("Refresh:3;url=query.php");
+        echo $row["loginName"]." 登陆成功，3秒后跳转首页";
+
+        // 跳转到首页
     } else {
-        echo "登录失败";
+        header("Refresh:3;url=../page/login.html");
+        echo "登录失败，3秒后跳转到登录页面";
+        
     }
     
 ?>
+

@@ -34,7 +34,7 @@
         列名2 数据类型2，
         ...
         列名n 数据类型n
-    )
+    ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 ```
 6. 删除 
 ```
