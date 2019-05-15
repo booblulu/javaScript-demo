@@ -32,13 +32,14 @@ Bootstrap 将页面分为行（.row），每行 12 列（.col-md-*）。行必�
 ![网格系统](./images/row.png)
 
 ```html
+    <!-- 测试行、列，在电脑端和手机端显示不同的列数-->
     <section class="container">
         <!-- 行 -->
         <div class="row">
             <!-- 列 -->
-            <div class="col-md-3">col-md-3</div>
-            <div class="col-md-6">col-md-6</div>
-            <div class="col-md-3">col-md-3</div>
+            <div class="col-xs-6 col-md-3">col-md-3</div>
+            <div class="col-xs-6 col-md-6">col-md-6</div>
+            <div class="col-xs-6 col-md-3">col-md-3</div>
         </div>
     </section>
 ```
