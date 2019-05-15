@@ -15,6 +15,20 @@
       <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .col-md-3 {
+            background: lightseagreen;
+        }
+        .col-md-6 {
+            background: lightpink;
+        }
+        .col-md-9 {
+            background: lawngreen;
+        }
+        .col-xs-6 {
+            background: lightgreen;
+        }
+    </style>
 </head>
 <body>
     <!-- 固定宽度水平居中显示 -->
@@ -34,20 +48,75 @@
         </p>
     </section>
 
-    <!-- 测试行、列，在电脑端和手机端显示不同的列数-->
+    <!-- 在电脑端和手机端显示不同的列数-->
     <section class="container">
         <div class="row">
-            <div class="col-xs-6 col-md-3">col-md-3</div>
-            <div class="col-xs-6 col-md-6">col-md-6</div>
-            <div class="col-xs-6 col-md-3">col-md-3</div>
+            <div class="col-md-3">col-md-3</div>
+            <div class="col-md-6">col-md-6</div>
+            <div class="col-md-3">col-md-3</div>
         </div>
     </section>
 
-    <!-- 测试行、列，所有设备显示一样的列数 -->
+    <!-- 所有设备上显示同数量的列 -->
     <section class="container">
         <div class="row">
-            <div class="col-xs-6">col-md-6</div>
-            <div class="col-xs-6">col-md-6</div>
+            <div class="col-xs-6">col-xs-6</div>
+            <div class="col-xs-6">col-xs-6</div>
+        </div>
+    </section>
+
+    <!-- 第一列占行宽的 1/4，第二列向右偏移 6 列，占用行末的 3 列 -->
+    <section class="container">
+        <div class="row">
+            <div class="col-md-3">col-xs-3</div>
+            <div class="col-md-3 col-md-offset-6">col-xs-3</div>
+        </div>
+    </section>
+
+    <!-- 推拉列 -->
+    <section class="container">
+        <div class="row">
+            <!-- 向后退3 -->
+            <div class="col-md-9 col-md-push-3">col-md-9</div>
+            <!-- 向前进9 -->
+            <div class="col-md-3 col-md-pull-9">col-md-3</div>
+        </div>
+    </section>
+    <br>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-3" style="background:none;">
+                <img src="http://placehold.it/150x150">
+            </div>
+            <div class="col-md-9" style="background:none;">
+                <h1>Jane Doette</h1>
+                <h3>front-end ninja</h3>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <img src="http://placehold.it/950x350">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Featured Work</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="http://placehold.it/250x250">
+                <h2>applify</h2>
+            </div>
+            <div class="col-md-4">
+                <img src="http://placehold.it/250x250">
+                <h2>sunflower</h2>
+            </div>
+            <div class="col-md-4">
+                <img src="http://placehold.it/250x250">
+                <h2>bokeh</h2>
+            </div>
         </div>
     </section>
 </body>
