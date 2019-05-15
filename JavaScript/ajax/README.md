@@ -14,7 +14,7 @@
 异步交互：浏览器提供了一个js对象XMLHttpRequest，通过这个对象我们可以进行发送/接收/处理请求。
 
 ### 语法
-1. 基本语法
+1. 基本语法(get)
 ```javascript
     // 1. 创建对象
     var xhr = new XMLHttpRequest();
@@ -23,7 +23,7 @@
     // console.log(xhr.readyState); // 0
     xhr.open("get","login.php?username=lulu");
 
-    // 3. 发送数据
+    // 3. 发送数据，get方式数据由url发送，但send不能省略
     // console.log(xhr.readyState); // 1
     xhr.send(null);
 
@@ -38,7 +38,24 @@
         }
     }
 ```
-2. readyState
+2. 基本语法(post)
+```javascript
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST","login.php");
+    // 需要发送特殊的请求头 Content-Type:application/x-www-form-urlencoded
+    // 设置请求头，必须在open之后，send之前
+    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    // 请求参数写在send内
+    xhr.send("username=lulu");
+    xhr.onreadystatechange = ()=>{
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            msg.innerHTML = xhr.responseText;
+            console.log(xhr.responseText);
+        }
+    }
+```
+
+3. readyState
 
 |  | 短语 | 含义 |
 |-------|-------|---------------------|
@@ -48,7 +65,7 @@
 | 3 | 解析 | XMLHttpRequest对象开始读取服务器的响应 |
 | 4 | 完成 | XMLHttpRequest对象读取服务器响应结束 |
 
-3. status
+4. status
 
 |  | 类别 | 含义 |
 |-------|-------|---------------------|
@@ -101,3 +118,10 @@
 |503 | 服务器过载或暂停维修|
 |504 | 关口过载，服务器使用另一个关口或服务来响应用户，等待时间设定值较长|
 |505 | 服务器不支持或拒绝支请求头中指定的HTTP版本|
+
+## 数据格式
+
+### XML
+
+
+### JSON

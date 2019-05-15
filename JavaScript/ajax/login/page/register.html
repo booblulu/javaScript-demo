@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户注册</title>
+</head>
+<body>
+        <form action="../api/username.php" method="post" id="register">     
+            昵称：<input type="text" name="loginName" id="loginName"><br><br>
+            用户名：<input type="text" name="username" id="username"><span id="usernameMsg"></span><br><br>
+            密码：<input type="password" name="password" id="password"><br><br>
+            <button type="submit" id="btn">确定</button>
+        </form>
+    
+    
+        <script>
+            var register = document.getElementById("register");
+            var username = document.getElementById("username");
+            var loginName = document.getElementById("loginName");
+            var password = document.getElementById("password");
+            var usernameMsg = document.getElementById("usernameMsg");
+            var btn = document.getElementById("btn");
+    
+            register.onsubmit = ()=>{
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST","../api/checkUsername.php");
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                xhr.send(`username=${username.value}`);
+                xhr.onreadystatechange = ()=>{
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log("error");
+                        if (xhr.responseText === "1") {
+                            usernameMsg.innerHTML = "用户名重复";
+                        }     
+                        if (xhr.responseText === "0") {
+                            register.action = "../api/register.php";
+                            register.submit();
+                        }            
+                    }
+                }        
+                return false;
+            }
+        </script>
+</body>
+</html>

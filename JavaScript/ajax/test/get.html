@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>get测试ajax</title>
+</head>
+<body>
+    <button id="ajax">ajax 异步请求get</button>
+    <p id="data"></p>
+
+    <script>
+        var btn = document.getElementById("ajax");
+        var msg = document.getElementById("data");
+        btn.onclick = ()=>{
+            // 1. 创建对象
+            var xhr = new XMLHttpRequest();
+            // 2. 打开连接
+            // console.log(xhr.readyState); // 0
+            xhr.open("get","login.php?username=lulu");
+            // 3. 发送数据
+            // console.log(xhr.readyState); // 1
+            xhr.send(null);
+            // 4. 接收数据 只能通过异步的方式，也就是回调函数
+            // 时刻监听服务器的改变
+            xhr.onreadystatechange = ()=>{
+                // 服务器数据响应成功会调用我
+                // console.log(xhr.readyState);  // 2 3 4
+                // 服务进行处理会返回一些状态  0=>初始化 1=>载入 2=>载入完成 3=>解析 4=>完成
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = xhr.responseText;
+                    msg.innerHTML = data;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

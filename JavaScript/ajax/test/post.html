@@ -4,23 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>登录</title>
+    <title>post测试ajax</title>
 </head>
 <body>
-    <button>登录</button>
-    <span></span>
+    <button>post 交互</button>
+    <p></p>
+
 
     <script>
         var btn = document.querySelector("button");
-        var span = document.querySelector("span");
+        var msg = document.querySelector("p");
+
         btn.onclick = ()=>{
             var xhr = new XMLHttpRequest();
             xhr.open("POST","login.php");
+            // 需要发送特殊的请求头 Content-Type:application/x-www-form-urlencoded
+            // 设置请求头，必须在open之后，send之前
             xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-            xhr.send("username-lulu");
+            xhr.send("username=lulu");
             xhr.onreadystatechange = ()=>{
-                if(xhr.readyState === 4 && xhr.status === 200){
-                    span.innerHTML = xhr.responseText;
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    msg.innerHTML = xhr.responseText;
+                    console.log(xhr.responseText);
                 }
             }
         }

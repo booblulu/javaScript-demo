@@ -148,7 +148,7 @@
 
     // 销毁cookie，可以通过设置cookie过期时间为以前的时间点来销毁，或者直接设置-1
     setcookie("username","",time()-2000);
-     setcookie("username","",-1);
+    setcookie("username","",-1);
 ```
 
 ```js
@@ -186,4 +186,41 @@
     // 服务器是通过session的id来判断客户端的，也就是session文件名，session文件名是随机生成且唯一的，当未设置有效期时，session会存储在内存中，在浏览器关闭后会被销毁，当重新请求该页面时，会重新注册session。 
     // 可以结合cookie来设置生命周期，cookie未被禁用时，设置多长时间session存活多久
     setcookie(session_name(),session_id(),time()+3600*24,"/");
+```
+12. 数据库
+```php
+    # 获取数据
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $loginName = $_POST["loginName"];
+   
+    # 与mysql建立连接
+    $link = @new mysqli("localhost","root","abc123");
+
+    # 诊断连接错误
+    if($link->connect_error) {
+        die("Could not connect to the database: " . $link->connect_error);
+    }
+
+    # 与数据库建立连接
+    $select_db = $link->select_db("test");
+    if(!$select_db) {
+        die("could not connect to the db: " . $link->error);
+    }
+
+    # sql语句
+    $sql = "insert into users(username,password,loginName) values('$username','$password','$loginName')";
+
+    # 执行sql语句
+    $res = $link->query($sql);
+    if(!$res) {
+        die("sql error: " . $link->error);
+    }
+
+    # 关闭连接
+    $link->close();
+
+    # 返回响应
+    echo $loginName." 注册成功";
+
 ```

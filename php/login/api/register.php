@@ -20,20 +20,44 @@
     if(!$select_db) {
         die("could not connect to the db: " . $link->error);
     }
-
-    # sql语句
+    $sql = "select * from users where username='$username' ";
+# 执行sql语句
+$res = $link->query($sql);
+var_dump($res);
+if($res->num_rows > 0){
+    echo "1";     
+} else {
     $sql = "insert into users(username,password,loginName) values('$username','$password','$loginName')";
-
-    # 执行sql语句
     $res = $link->query($sql);
-    if(!$res) {
-        die("sql error: " . $link->error);
-    }
+    if(!$res){
+        die("error sql: ".$link->error);
+    }  else {
+        session_start();
+        $_SESSION["user"] = array(
+            "username" => $username,
+            "password" => $password,
+            "loginName" => $loginName
+        );
+        echo "注册成功，3秒后跳转到首页";
+        setcookie("flag",1,time()+3600*24,"/");
+        setcookie("username",$loginName,time()+3600*24,"/");
+        header("Refresh:3;url=../page/index.html");
+    }    
+}
+    // # sql语句
+    // $sql = "insert into users(username,password,loginName) values('$username','$password','$loginName')";
 
-    # 关闭连接
-    $link->close();
+    // # 执行sql语句
+    // $res = $link->query($sql);
 
-    # 返回响应
-    echo $loginName." 注册成功";
+    // if(!$res) {
+    //     die("sql error: " . $link->error);
+    // }
+
+    // # 关闭连接
+    // $link->close();
+
+    // # 返回响应
+    // echo $loginName." 注册成功";
 
 ?>
