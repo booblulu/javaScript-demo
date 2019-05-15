@@ -28,6 +28,9 @@
         .col-xs-6 {
             background: lightgreen;
         }
+        img {
+            max-width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -68,8 +71,8 @@
     <!-- 第一列占行宽的 1/4，第二列向右偏移 6 列，占用行末的 3 列 -->
     <section class="container">
         <div class="row">
-            <div class="col-md-3">col-xs-3</div>
-            <div class="col-md-3 col-md-offset-6">col-xs-3</div>
+            <div class="col-md-3">col-md-3</div>
+            <div class="col-md-3 col-md-offset-6">col-md-3 col-md-offset-6</div>
         </div>
     </section>
 
@@ -77,9 +80,9 @@
     <section class="container">
         <div class="row">
             <!-- 向后退3 -->
-            <div class="col-md-9 col-md-push-3">col-md-9</div>
+            <div class="col-md-9 col-md-push-3">col-md-9 col-md-push-3</div>
             <!-- 向前进9 -->
-            <div class="col-md-3 col-md-pull-9">col-md-3</div>
+            <div class="col-md-3 col-md-pull-9">col-md-3 col-md-pull-9</div>
         </div>
     </section>
     <br>
