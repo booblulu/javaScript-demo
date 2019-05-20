@@ -1,0 +1,151 @@
+// 变量
+@width: 50%;
+@height: 100px;
+@color: greenyellow;
+
+div {
+    width: @width;
+    height: @height - 10;
+    background: @color;
+}
+
+// 动态选择器
+@mySelector: #box;
+@{mySelector}{
+    width: 50%;
+    height: 100px;
+    background: greenyellow;
+}
+
+// url变量
+@image: "../images";
+
+div {
+    background: url("@{image}/头像.jpg");
+}
+
+
+// 声明变量
+@box: {
+    width: 50%;
+    height: 100px;
+    background:red;
+};
+
+div {
+    @box();
+}
+
+// 生成的css
+div {
+    width: 50%;
+    height: 100px;
+    background:red
+}
+
+// 变量运算
+@width: 50%;
+@height: 100px;
+@color: pink;
+
+div {
+    width: @width - 10;
+    height: @height - 10;
+    background: @color;
+}
+
+// 变量定义变量
+@one: "hello world";
+@nums: one;
+
+div:after {
+    content: @@nums;
+}
+
+
+// &
+.box {
+    width: @width - 10;
+    height: @height - 10;
+    background: @color;   
+    &:after{
+        content: "hi";
+    }
+    &_content {
+        color: red;
+    }
+}
+
+// 媒体查询
+#wrap{
+    width:800px;
+    height: 100px;
+    background: blueviolet;
+}
+@media screen and (max-width:768px){
+    #wrap{
+        width:500px;
+        height: 100px;
+        background: blue;
+    }
+}
+@media screen and (max-width:400px){
+    #wrap{
+        width:100px;
+        height: 100px;
+        background: pink;
+    }
+}
+
+#wrap{
+    width:800px;
+    height: 100px;
+    background: blueviolet;
+
+    @media screen {
+        @media (max-width:768px){
+                width:500px;
+                height: 100px;
+                background: blue;
+        }
+        @media (max-width:400px){
+                width:100px;
+                height: 100px;
+                background: pink;
+        }
+    }
+}
+
+// 避免编译
+.box {
+    width: ~'`Math.round(Math.random()*80)`px';
+    height: 90px;
+    background: yellow;   
+    alert: ~"`alert(1)`";
+}
+
+
+// 匹配模式
+.triangle(top,@width:20px,@color:#000){
+    border-color:transparent  transparent @color transparent ;
+}
+.triangle(right,@width:20px,@color:#000){
+    border-color:transparent @color transparent  transparent ;
+}
+
+.triangle(bottom,@width:20px,@color:#000){
+    border-color:@color transparent  transparent  transparent ;
+}
+.triangle(left,@width:20px,@color:#000){
+    border-color:transparent  transparent  transparent @color;
+}
+.triangle(@_,@width:20px,@color:#000){
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @width;
+}
+#main{
+    .triangle(left, 50px, #999)
+}
+
