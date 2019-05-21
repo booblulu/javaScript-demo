@@ -31,8 +31,16 @@
 	* 邮件服务器：Postfix、Sendmail等
 	* web 服务器：Apache、Nginx、IIS、Tomcat、NodeJS等
 
+### Apache（mac）
 
-### Apache
+#### 基本使用
+mac内置Apache，在终端输入：`sudo apachectl start`，在浏览器输入 http://localhost ，会显示“It works!”，说明服务器已经启动成功了。Apache默认的根目录在“/Library/WebServer/Documents/”下。
+
+#### 配置路径
+
+
+
+### Apache（window）
 
 #### 路径
 将所有的${SRVROOT}修改为安装路径
