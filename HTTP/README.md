@@ -37,7 +37,7 @@
 mac内置Apache，在终端输入：`sudo apachectl start`，在浏览器输入 http://localhost ，会显示“It works!”，说明服务器已经启动成功了。Apache默认的根目录在“/Library/WebServer/Documents/”下。
 
 #### 配置路径
-
+https://www.cnblogs.com/wanxudong/p/5846907.html
 
 
 ### Apache（window）
